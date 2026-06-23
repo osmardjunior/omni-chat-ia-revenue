@@ -129,7 +129,7 @@ import logoOmnichat from '../image/logo-omnichat.svg';
 <!-- ==================== TELA 2: DIAGNÓSTICO MULTIETAPAS (Figma 26:233 Full-Screen Layout) ==================== -->
 <section
   id="stage-2"
-  class="hidden fixed inset-0 z-40 overflow-y-auto bg-background text-foreground"
+  class="hidden fixed inset-0 z-40 overflow-y-auto bg-transparent text-foreground"
 >
   <!-- Full Layout wrapper matching left align + margins from Figma -->
   <div class="mx-auto flex min-h-full max-w-[1240px] flex-col px-6 py-7 md:px-14 md:py-9 justify-between">
@@ -197,7 +197,7 @@ import logoOmnichat from '../image/logo-omnichat.svg';
           </h2>
           
           <!-- Optional description -->
-          <p class="text-muted text-sm md:text-base font-lato font-medium max-w-3xl -mt-2">
+          <p class="md:text-base font-lato font-medium max-w-3xl -mt-2 text-2xl text-[#ffffff]">
             {q.description}
           </p>
 
@@ -227,7 +227,7 @@ import logoOmnichat from '../image/logo-omnichat.svg';
                       <h4 class="font-lato font-extrabold text-base text-foreground group-hover:text-purple-100 transition-colors">
                         {opt.label}
                       </h4>
-                      <p class="text-xs text-muted/75 font-lato font-medium mt-1 leading-relaxed group-hover:text-muted transition-colors">
+                      <p class="font-lato font-medium mt-1 group-hover:text-muted transition-colors text-xl leading-tight text-left text-[#b9b7c4]">
                         {opt.detail}
                       </p>
                     </div>
