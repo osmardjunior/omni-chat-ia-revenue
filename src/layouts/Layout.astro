@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import GoogleTagManager from '../components/GoogleTagManager.astro';
+import GoogleTagManagerNoScript from '../components/GoogleTagManagerNoScript.astro';
 
 interface Props {
   title?: string;
@@ -23,8 +25,12 @@ const { title = 'Ship Studio Starter' } = Astro.props;
       rel="stylesheet"
     />
     <title>{title}</title>
+    <!-- GTM Head script -->
+    <GoogleTagManager />
   </head>
   <body class="bg-background text-foreground font-body antialiased">
+    <!-- GTM NoScript fallback -->
+    <GoogleTagManagerNoScript />
     <slot />
   </body>
 </html>

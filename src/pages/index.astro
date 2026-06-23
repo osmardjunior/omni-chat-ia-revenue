@@ -374,6 +374,14 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
 
     highlightSelectedOptions(stepNum);
 
+    // Push GTM custom tracking event
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'diagnostic_option_selected',
+      step: stepNum,
+      option: val
+    });
+
     if (stepNum < 10) {
       setTimeout(() => {
         showStep(stepNum + 1);
@@ -663,6 +671,14 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
     if (resMarketStatNumber) resMarketStatNumber.textContent = sectorConfig.statNumber;
     if (resMarketStatLabel) resMarketStatLabel.textContent = sectorConfig.statLabel;
 
+    // Push GTM results_viewed custom event
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+      event: 'diagnostic_results_viewed',
+      overallScore: overallScore,
+      maturityStage: stageNameText
+    });
+
     // Sync dynamic success case for Stage 4
     const primaryCase = sectorConfig.primaryCase;
     state.primaryCase = primaryCase;
@@ -693,6 +709,8 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
   function init() {
     // Start button
     btnStartSimulation?.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'diagnostic_started' });
       setStage(2);
     });
 
@@ -731,6 +749,8 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
 
     // Unlock report button
     btnUnlockReport?.addEventListener('click', () => {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'diagnostic_whatsapp_click' });
       setStage(4);
     });
 
@@ -818,6 +838,19 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
       const overallScore = state.scores.overall;
       const maturityStage = state.scores.maturityStage;
       const lowestDimension = state.scores.lowestDimension;
+
+      // Push GTM lead_submitted event
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'diagnostic_lead_submitted',
+        leadName: name,
+        leadEmail: email,
+        leadCompany: company,
+        leadRole: role,
+        leadSector: sector,
+        overallScore: overallScore,
+        maturityStage: maturityStage
+      });
 
       const revenueScore = state.scores.revenue;
       const dataScore = state.scores.data;
