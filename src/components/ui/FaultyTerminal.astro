@@ -308,7 +308,7 @@ void main() {
     if (!gl) return;
 
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = 1.0; // Limit rendering resolution to 1.0 DPR (saves 75% GPU pixels on Retina screens without visual loss)
 
     const program = gl.createProgram()!;
     gl.attachShader(program, compile(gl, gl.VERTEX_SHADER, VERT));
@@ -397,9 +397,17 @@ void main() {
     const timeOffset = Math.random() * 100;
     let start = 0;
     let raf = 0;
+    let lastTime = 0;
+    const fpsInterval = 1000 / 30; // Throttle to 30 FPS (instantly saves 50% CPU/GPU frames)
 
     function frame(t: number) {
       raf = requestAnimationFrame(frame);
+
+      // 30 FPS Throttling check
+      const elapsedSinceLast = t - lastTime;
+      if (elapsedSinceLast < fpsInterval) return;
+      lastTime = t - (elapsedSinceLast % fpsInterval);
+
       if (start === 0) start = t;
       const elapsed = (t * 0.001 + timeOffset) * cfg.timeScale;
       gl.uniform1f(u.iTime, prefersReduced ? timeOffset * cfg.timeScale : elapsed);
@@ -421,10 +429,24 @@ void main() {
     }
     raf = requestAnimationFrame(frame);
 
+    // Pause when tab is invisible to save 100% GPU
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && raf !== 0) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      } else if (!document.hidden && raf === 0) {
+        lastTime = performance.now();
+        raf = requestAnimationFrame(frame);
+      }
+    });
+
     // Pause when offscreen to save GPU
     const io = new IntersectionObserver((entries) => {
       for (const en of entries) {
-        if (en.isIntersecting && raf === 0) raf = requestAnimationFrame(frame);
+        if (en.isIntersecting && raf === 0) {
+          lastTime = performance.now();
+          raf = requestAnimationFrame(frame);
+        }
         else if (!en.isIntersecting && raf !== 0) {
           cancelAnimationFrame(raf);
           raf = 0;
