@@ -6,30 +6,8 @@ import logoOmnichat from '../image/logo-omnichat.svg';
 <!-- ==================== TELA 1: LANDING / HERO (full-screen) ==================== -->
 <section
   id="stage-1"
-  class="fixed inset-0 z-50 overflow-hidden bg-background text-foreground"
+  class="fixed inset-0 z-50 overflow-hidden bg-transparent text-foreground"
 >
-  <!-- Animated WebGL background (FaultyTerminal port) -->
-  <FaultyTerminal
-    class="opacity-90"
-    scale={1.5}
-    digitSize={1.2}
-    scanlineIntensity={0.5}
-    glitchAmount={1}
-    flickerAmount={1}
-    noiseAmp={1}
-    chromaticAberration={0}
-    dither={0}
-    curvature={0.1}
-    tint="#7C3AED"
-    mouseReact
-    mouseStrength={0.5}
-    brightness={0.6}
-  />
-  <!-- Readability overlay: keep the dark, content-first look of the design -->
-  <div
-    class="pointer-events-none absolute inset-0"
-    style="background: radial-gradient(120% 90% at 18% 42%, rgba(9,7,14,0.92) 0%, rgba(9,7,14,0.82) 38%, rgba(9,7,14,0.55) 72%, rgba(9,7,14,0.35) 100%);"
-  ></div>
 
   <!-- Content -->
   <div class="relative z-10 mx-auto flex h-full max-w-[1240px] flex-col px-6 py-7 md:px-14 md:py-9">

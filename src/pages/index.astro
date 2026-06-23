@@ -5,20 +5,45 @@ import StageLanding from '../components/StageLanding.astro';
 import StageQuiz from '../components/StageQuiz.astro';
 import StageResults from '../components/StageResults.astro';
 import StageLead from '../components/StageLead.astro';
+import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
 ---
 
 <Layout title="Diagnóstico de Maturidade de IA Comercial • Revenue AI | Ship Studio">
-  <main class="min-h-screen bg-background text-foreground transition-colors duration-300">
+  <!-- Persistent Animated WebGL Background Backdrop -->
+  <div class="fixed inset-0 z-0 overflow-hidden pointer-events-none">
+    <FaultyTerminal
+      class="opacity-90"
+      scale={1.5}
+      digitSize={1.2}
+      scanlineIntensity={0.5}
+      glitchAmount={1}
+      flickerAmount={1}
+      noiseAmp={1}
+      chromaticAberration={0}
+      dither={0}
+      curvature={0.1}
+      tint="#7C3AED"
+      mouseReact
+      mouseStrength={0.5}
+      brightness={0.6}
+    />
+    <div
+      class="pointer-events-none absolute inset-0"
+      style="background: radial-gradient(120% 90% at 18% 42%, rgba(9,7,14,0.92) 0%, rgba(9,7,14,0.82) 38%, rgba(9,7,14,0.55) 72%, rgba(9,7,14,0.35) 100%);"
+    ></div>
+  </div>
+
+  <main class="min-h-screen relative z-10 bg-transparent text-foreground transition-colors duration-300">
     <Header />
 
-    <div class="mx-auto max-w-4xl px-4 py-12 md:py-20">
+    <div class="mx-auto max-w-6xl px-4 py-12 md:py-20">
       <StageQuiz />
       <StageResults />
       <StageLead />
     </div>
   </main>
 
-  <!-- Full-screen landing overlay (Figma design + WebGL background) -->
+  <!-- Full-screen landing overlay (Figma design) -->
   <StageLanding />
 </Layout>
 
@@ -51,6 +76,8 @@ import StageLead from '../components/StageLead.astro';
   // Sector Data Library
   const SECTOR_DATA = {
     'Varejo & E-commerce': {
+      statNumber: "4.2x",
+      statLabel: "é o aumento de conversão de vendas que adota agentes comerciais para sua operação",
       marketFacts: "No varejo digital brasileiro, mais de 78% dos carrinhos são abandonados. Marcas líderes de e-commerce que adotam agentes comerciais de IA com atribuição fechada alcançam uma conversão de vendas até 4.2x maior que canais tradicionais de e-mail e SMS.",
       bottlenecks: [
         "Altíssimo abandono de carrinhos no checkout sem nenhuma ação ativa ou oportuna de recuperação.",
@@ -74,6 +101,8 @@ import StageLead from '../components/StageLead.astro';
       }
     },
     'Saúde & Clínicas': {
+      statNumber: "40%",
+      statLabel: "de leads são perdidos devido à demora de atendimento inicial que a IA elimina",
       marketFacts: "O setor de saúde enfrenta uma perda média de 40% de leads devido à demora de atendimento inicial. O tempo ideal de resposta para agendamentos particulares ou consultas médicas é inferior a 5 minutos para evitar o abandono.",
       bottlenecks: [
         "Demora crônica no atendimento de primeiro contato, resultando no agendamento com concorrentes.",
@@ -97,6 +126,8 @@ import StageLead from '../components/StageLead.astro';
       }
     },
     'Serviços Financeiros': {
+      statNumber: "2 min",
+      statLabel: "é o tempo máximo para qualificar leads de crédito e investimentos com IA",
       marketFacts: "No mercado financeiro e de crédito, a segurança jurídica e a velocidade são fundamentais. O uso de IA generativa com guardrails robustos permite reduzir o tempo de análise cadastral e qualificação de leads de 3 dias para menos de 5 minutos.",
       bottlenecks: [
         "Custosa qualificação manual de leads de crédito ou investimentos que consome a maior parte do tempo dos consultores.",
@@ -120,6 +151,8 @@ import StageLead from '../components/StageLead.astro';
       }
     },
     'Tecnologia & SaaS': {
+      statNumber: "35%",
+      statLabel: "é a redução média no custo de aquisição de clientes (CAC) com IA",
       marketFacts: "Empresas de SaaS e tecnologia que utilizam IA para ativação e conversão ativa de leads reduzem o Custo de Aquisição de Clientes (CAC) em até 35% e elevam o valor de tempo de vida do cliente (LTV) através de onboarding conversacional interativo.",
       bottlenecks: [
         "Demora na triagem de leads inbound gerados pelo marketing antes do envio para o time de pré-vendas (SDR).",
@@ -143,12 +176,14 @@ import StageLead from '../components/StageLead.astro';
       }
     },
     'Logística & Distribuição': {
+      statNumber: "4h",
+      statLabel: "de tempo de cotação reduzido para segundos com IA integrada ao ERP",
       marketFacts: "Na logística e distribuição, a prontidão de estoque e a agilidade de cotação são diferenciais competitivos brutais. Distribuidores com processos comerciais baseados em canais conversacionais integrados ao ERP reduzem o tempo de cotação de 4 hours para segundos.",
       bottlenecks: [
         "Processo de cotação manual demorado de preços, estoques e fretes, gerando cancelamentos e atritos.",
         "Vendedores dedicados a responder tarefas puramente burocráticas (como segunda via de boleto ou rastreio) em vez de focar na venda ativa.",
         "Falta de cadência automática de recompra baseada no ciclo de consumo dos clientes B2B cadastrados.",
-        "Ineficiência no rastreamento de cargas resultando em dezenas de ligações diárias de suporte reativo."
+        "Ineficiência no rastreamento de cargas resultando in dezenas de ligações diárias de suporte reativo."
       ],
       efficiencies: [
         { label: "Cotações Instantâneas", value: "IA consulta estoque e calcula fretes/preços em tempo real direto com o ERP." },
@@ -166,6 +201,8 @@ import StageLead from '../components/StageLead.astro';
       }
     },
     'Outros': {
+      statNumber: "80%",
+      statLabel: "de liberação do tempo dos atendentes respondendo dúvidas repetitivas com IA",
       marketFacts: "Canais conversacionais inteligentes representam o canal de maior crescimento de receita no mercado B2B e B2C. A estruturação de métricas de retorno (ROI) e governança comercial são os pilares para garantir a sustentabilidade financeira da IA comercial.",
       bottlenecks: [
         "Operação comercial de WhatsApp operando de forma amadora, sem métricas claras de vendas diretas ou assistidas.",
@@ -183,7 +220,7 @@ import StageLead from '../components/StageLead.astro';
         name: "Biscoitê",
         segment: "Alimentício & Varejo",
         problem: "Ausência de mensuração fidedigna de quanto as interações do WhatsApp contribuíam no faturamento da empresa, dificultando novos investimentos.",
-        approach: "Estruturação de tags, integração com CRM e implementação de dashboards de atribuição fechada para rastrear todas as vendas diretas e assistidas originadas por IA.",
+        approach: "Estruturação de tags, integration com CRM e implementação de dashboards de atribuição fechada para rastrear todas as vendas diretas e assistidas originadas por IA.",
         result: "Retorno financeiro comprovado e mapeado com clareza com dashboard de ROI comercial de canais conversacionais.",
         takeaway: "O que não é medido não pode ser otimizado. Rastreabilidade é o primeiro passo para escalar receita."
       }
@@ -213,6 +250,8 @@ import StageLead from '../components/StageLead.astro';
   const leadSuccessContainer = document.getElementById('lead-success-container');
 
   // Switch Stages
+  const globalHeader = document.getElementById('global-header');
+
   function setStage(stageNum) {
     state.stage = stageNum;
     
@@ -220,6 +259,15 @@ import StageLead from '../components/StageLead.astro';
     stage2?.classList.add('hidden');
     stage3?.classList.add('hidden');
     stage4?.classList.add('hidden');
+
+    // Global header is only for in-flow stages (Results/Lead). Landing & Quiz
+    // are full-screen overlays with their own header, so hide it to avoid the
+    // transparent landing bleeding two overlapping logos.
+    if (stageNum === 3 || stageNum === 4) {
+      globalHeader?.classList.remove('hidden');
+    } else {
+      globalHeader?.classList.add('hidden');
+    }
 
     if (stageNum === 1) {
       stage1?.classList.remove('hidden');
@@ -516,140 +564,108 @@ import StageLead from '../components/StageLead.astro';
       }
     }
 
-    // Update DOM Elements in Stage 3
+    // Update DOM Elements in Stage 3 (Figma Typographic & Accordion updates)
     const resOverallScore = document.getElementById('res-overall-score');
     if (resOverallScore) resOverallScore.textContent = `${overallScore}%`;
 
-    const gaugeCircle = document.getElementById('res-gauge-circle');
-    if (gaugeCircle) {
-      const offset = 263.8 * (1 - overallScore / 100);
-      gaugeCircle.setAttribute('stroke-dashoffset', offset.toString());
-      
-      if (overallScore <= 25) {
-        gaugeCircle.style.stroke = 'rgb(239, 68, 68)'; // red-500
-      } else if (overallScore <= 75) {
-        gaugeCircle.style.stroke = 'rgb(245, 158, 11)'; // amber-500
-      } else {
-        gaugeCircle.style.stroke = 'rgb(16, 185, 129)'; // emerald-500
-      }
-    }
+    const stageParts = maturityStageText.split(': ');
+    const stageNumberText = stageParts[0] || 'Estágio 3';
+    const stageNameText = stageParts[1] || 'Canal em Estruturação';
 
-    const gaugeLabel = document.getElementById('res-maturity-label-gauge');
-    if (gaugeLabel) {
-      if (overallScore <= 25) gaugeLabel.textContent = 'Experimental';
-      else if (overallScore <= 50) gaugeLabel.textContent = 'Operacional';
-      else if (overallScore <= 75) gaugeLabel.textContent = 'Estruturação';
-      else gaugeLabel.textContent = 'Maduro';
-    }
+    const resMaturityStageLabel = document.getElementById('res-maturity-stage-label');
+    if (resMaturityStageLabel) resMaturityStageLabel.textContent = stageNameText.toUpperCase();
 
-    const maturityStageName = document.getElementById('res-maturity-stage-name');
-    if (maturityStageName) maturityStageName.textContent = maturityStageText;
+    const resMaturityStageNumber = document.getElementById('res-maturity-stage-number');
+    if (resMaturityStageNumber) resMaturityStageNumber.textContent = stageNumberText;
 
-    const maturityDescription = document.getElementById('res-maturity-description');
-    if (maturityDescription) maturityDescription.textContent = maturityDescriptionText;
+    const resMaturityStageName = document.getElementById('res-maturity-stage-name');
+    if (resMaturityStageName) resMaturityStageName.textContent = stageNameText;
 
-    // Helper function to update dimension display
-    const updateDimensionUI = (num, score) => {
-      const scoreLabel = document.getElementById(`res-dim${num}-score`);
-      const bar = document.getElementById(`res-dim${num}-bar`);
-      if (scoreLabel) scoreLabel.textContent = `${score}%`;
-      if (bar) {
-        bar.style.width = `${score}%`;
-        if (score <= 25) bar.style.backgroundColor = 'rgb(239, 68, 68)';
-        else if (score <= 75) bar.style.backgroundColor = 'rgb(245, 158, 11)';
-        else bar.style.backgroundColor = 'rgb(16, 185, 129)';
-      }
-    };
+    // Split description into two paragraphs
+    const descParts = maturityDescriptionText.split('. ');
+    const desc1Text = descParts[0] ? descParts[0] + '.' : '';
+    const desc2Text = descParts.slice(1).join('. ').trim();
 
-    updateDimensionUI(1, dim1Score);
-    updateDimensionUI(2, dim2Score);
-    updateDimensionUI(3, dim3Score);
-    updateDimensionUI(4, dim4Score);
-    updateDimensionUI(5, dim5Score);
+    const resDesc1 = document.getElementById('res-maturity-stage-desc-1');
+    if (resDesc1) resDesc1.textContent = desc1Text;
 
-    // Apply dimensional visual highlights on the TWO lowest scores
-    for (let i = 1; i <= 5; i++) {
-      const container = document.getElementById(`res-dim${i}-container`);
-      const warning = document.getElementById(`res-dim${i}-warning`);
-      if (container) {
-        container.className = "space-y-2.5 p-4 rounded-2xl border border-foreground/10 bg-foreground/[0.01] transition-all duration-300 relative";
-      }
-      if (warning) {
-        warning.classList.add('hidden');
-      }
-    }
-
-    const highlightContainer = (dimObj) => {
-      const container = document.getElementById(`res-dim${dimObj.id}-container`);
-      const warning = document.getElementById(`res-dim${dimObj.id}-warning`);
-      if (container) {
-        container.className = "space-y-2.5 p-4 rounded-2xl border-amber-500/30 bg-amber-500/5 ring-1 ring-amber-500/20 transition-all duration-300 relative";
-      }
-      if (warning) {
-        warning.classList.remove('hidden');
-      }
-    };
-
-    highlightContainer(lowest);
-    highlightContainer(secondLowest);
+    const resDesc2 = document.getElementById('res-maturity-stage-desc-2');
+    if (resDesc2) resDesc2.textContent = desc2Text;
 
     // Fetch sector-specific dynamic data
     const sectorSelect = document.getElementById('select-sector') as HTMLSelectElement;
     const selectedSector = sectorSelect ? sectorSelect.value : 'Varejo & E-commerce';
     const sectorConfig = SECTOR_DATA[selectedSector as keyof typeof SECTOR_DATA] || SECTOR_DATA['Outros'];
 
-    // Inject Block 3 — Principais Gargalos (Primary Bottlenecks)
-    const inferredBottlenecks = document.getElementById('inferred-bottlenecks');
-    if (inferredBottlenecks) {
-      inferredBottlenecks.innerHTML = sectorConfig.bottlenecks.map(b => `
-        <li class="flex items-start gap-2.5 p-4 rounded-xl border border-foreground/5 bg-foreground/[0.01]">
-          <span class="h-5 w-5 shrink-0 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-xs mt-0.5">!</span>
-          <span class="text-xs text-muted leading-relaxed font-normal">${b}</span>
-        </li>
-      `).join('');
-    }
+    // Helper to dynamically update each dimension's accordion row cards
+    const updateAccordionRow = (id, score, bottleneck, efficiency) => {
+      const scoreCollapsed = document.getElementById(`res-dim${id}-score-collapsed`);
+      const scoreBig = document.getElementById(`res-dim${id}-score-big`);
+      const bottleneckText = document.getElementById(`res-dim${id}-bottleneck`);
+      const efficiencyTitle = document.getElementById(`res-dim${id}-efficiency-title`);
+      const efficiencyDesc = document.getElementById(`res-dim${id}-efficiency-desc`);
+      const card2 = document.getElementById(`res-dim${id}-card2`);
+      const badge = document.getElementById(`res-dim${id}-badge`);
 
-    // Inject Block 4 — Mercado e Benchmark Setorial (Market & Sector Benchmark)
-    const marketBenchmark = document.getElementById('market-benchmark');
-    if (marketBenchmark) {
-      marketBenchmark.textContent = sectorConfig.marketFacts;
-    }
+      if (scoreCollapsed) scoreCollapsed.textContent = `${score}%`;
+      if (scoreBig) scoreBig.textContent = `${score}%`;
+      if (bottleneckText) bottleneckText.textContent = bottleneck;
+      if (efficiencyTitle) efficiencyTitle.textContent = efficiency.label;
+      if (efficiencyDesc) efficiencyDesc.textContent = efficiency.value;
 
-    // Inject Block 5 — Eficiência Projetada (Projected Efficiency)
-    const projectedEfficiency = document.getElementById('projected-efficiency');
-    if (projectedEfficiency) {
-      projectedEfficiency.innerHTML = sectorConfig.efficiencies.map(e => `
-        <div class="p-4 rounded-xl border border-accent/10 bg-accent/[0.01]">
-          <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-1">${e.label}</span>
-          <p class="text-xs text-muted leading-relaxed font-normal">${e.value}</p>
-        </div>
-      `).join('');
-    }
+      if (card2 && badge) {
+        let bgClass = "bg-[#9df09e]"; // Default positive green
+        let badgeText = "SCORE POSITIVO ACIMA DA MÉDIA";
+        let badgeBg = "bg-black";
 
-    // Inject Block 6 — Plano de Ação (90-Day Action Plan)
-    const actionPlan = document.getElementById('action-plan');
-    if (actionPlan) {
-      actionPlan.innerHTML = getActionPlanHTML(lowest.key);
-    }
+        if (score < 60) {
+          bgClass = "bg-[#FECACA]"; // Critical red
+          badgeText = "SCORE CRÍTICO ABAIXO DA MÉDIA";
+          badgeBg = "bg-red-600";
+        } else if (score < 75) {
+          bgClass = "bg-[#FEF08A]"; // Moderate yellow
+          badgeText = "SCORE MODERADO NA MÉDIA";
+          badgeBg = "bg-amber-500";
+        }
 
-    // Inject Block 7 — Case do Setor (Industry Success Case)
+        // Store the correct active bg class
+        card2.setAttribute('data-bg-class', bgClass);
+        
+        // Update badge text and style
+        badge.textContent = badgeText;
+        badge.className = `text-[8px] font-black uppercase tracking-widest ${badgeBg} text-white px-2.5 py-1.5 rounded-full inline-block text-center mt-2.5`;
+
+        // If the row is currently expanded (has the active class), apply the active bg color immediately!
+        const row = card2.closest('.accordion-item');
+        if (row && row.classList.contains('active')) {
+          card2.className = `${bgClass} rounded-3xl p-6 shadow-xl min-h-[180px] text-black transition-all duration-300`;
+        } else {
+          card2.className = `bg-[#fffde6] rounded-3xl p-5 shadow-md min-h-[70px] text-black transition-all duration-300`;
+        }
+      }
+    };
+
+    updateAccordionRow(1, dim1Score, sectorConfig.bottlenecks[0], sectorConfig.efficiencies[1]);
+    updateAccordionRow(2, dim2Score, sectorConfig.bottlenecks[2], sectorConfig.efficiencies[2]);
+    updateAccordionRow(3, dim3Score, sectorConfig.bottlenecks[1], sectorConfig.efficiencies[0]);
+    updateAccordionRow(4, dim4Score, sectorConfig.bottlenecks[3], sectorConfig.efficiencies[3]);
+    updateAccordionRow(5, dim5Score, 
+      "Ausência de rituais semanais para auditar diálogos, calibrar o tom de voz e monitorar o faturamento do canal.", 
+      { label: "Liderança e Otimização", value: "Estruturação de comitê de vendas e curadoria semanal para calibrar o conhecimento e testar novos scripts comerciais." }
+    );
+
+    // Update Market & Sector Benchmark section
+    const resMarketFactsDesc = document.getElementById('res-market-facts-desc');
+    const resMarketStatNumber = document.getElementById('res-market-stat-number');
+    const resMarketStatLabel = document.getElementById('res-market-stat-label');
+
+    if (resMarketFactsDesc) resMarketFactsDesc.textContent = sectorConfig.marketFacts;
+    if (resMarketStatNumber) resMarketStatNumber.textContent = sectorConfig.statNumber;
+    if (resMarketStatLabel) resMarketStatLabel.textContent = sectorConfig.statLabel;
+
+    // Sync dynamic success case for Stage 4
     const primaryCase = sectorConfig.primaryCase;
     state.primaryCase = primaryCase;
-
-    // Populating Stage 3 Block 7 Case Info
-    const st3Brand = document.querySelector('#stage-3 #success-case-brand');
-    const st3Segment = document.querySelector('#stage-3 #success-case-segment');
-    const st3Result = document.querySelector('#stage-3 #success-case-result');
-    const st3Problem = document.querySelector('#stage-3 #success-case-problem');
-    const st3Approach = document.querySelector('#stage-3 #success-case-approach');
-    const st3Takeaway = document.querySelector('#stage-3 #success-case-takeaway');
-
-    if (st3Brand) st3Brand.textContent = primaryCase.name;
-    if (st3Segment) st3Segment.textContent = primaryCase.segment;
-    if (st3Result) st3Result.textContent = primaryCase.result;
-    if (st3Problem) st3Problem.textContent = primaryCase.problem;
-    if (st3Approach) st3Approach.textContent = primaryCase.approach;
-    if (st3Takeaway) st3Takeaway.textContent = primaryCase.takeaway;
 
     // Populating Stage 4 Success Info
     const successCaseCard = document.getElementById('success-case-card');

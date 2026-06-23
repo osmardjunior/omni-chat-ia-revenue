@@ -1,6 +1,4 @@
 ---
-import Gauge from './ui/Gauge.astro';
-import Progress from './ui/Progress.astro';
 import Button from './ui/Button.astro';
 
 const dimensions = [
@@ -30,296 +28,420 @@ const dimensions = [
     description: 'Líder dedicado do canal conversacional e cadência semanal de testes e dados.'
   }
 ] as const;
-
-const comparisonMetrics = [
-  {
-    label: "Posicionamento e Papel Comercial",
-    current: "Apenas FAQ / suporte reativo",
-    ideal: "Jornada de Vendas Ativa e Autônoma"
-  },
-  {
-    label: "Atribuição de Mídia Paga (Meta Ads)",
-    current: "Mídia sem Atribuição ou Manual",
-    ideal: "Integração API de Conversões 100%"
-  },
-  {
-    label: "Governança Comercial e Handoff",
-    current: "Fila Cega, Risco de Alucinação",
-    ideal: "Handoff Inteligente com Travas Rígidas"
-  }
-];
 ---
-<!-- ==================== TELA 3: RESULTADOS (Glassmorphism Edit) ==================== -->
-<section id="stage-3" class="hidden space-y-12 transition-all duration-500 ease-in-out animate-fade-in">
-  <!-- Title Header -->
-  <div class="text-center space-y-4">
-    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold tracking-wide uppercase font-lato">
-      <span class="h-2 w-2 rounded-full bg-emerald-500 shadow-md shadow-emerald-500/50"></span>
-      Painel Executivo Concluído
+
+<!-- ==================== TELA 3: RESULTADOS (Figma Accordion Edit) ==================== -->
+<section id="stage-3" class="hidden space-y-10 transition-all duration-500 ease-in-out animate-fade-in relative z-10">
+  
+  <!-- Title Header (Thin Typographic Look matching Figma) -->
+  <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 max-w-[1240px]">
+    <div class="space-y-4 max-w-2xl">
+      <h1 class="font-lato leading-[1.1] tracking-[-0.01em] text-[#FFD04D]" style="font-size: clamp(2.5rem, 5.5vw, 4.2rem); font-weight: 275;">
+        Diagnóstico de <br />
+        Maturidade de IA Comercial
+      </h1>
+      <p class="text-zinc-400 text-sm md:text-base font-lato font-light leading-relaxed">
+        Relatório estruturado de prontidão para habilitar agentes inteligentes como canal de vendas ativo de alta performance no WhatsApp.
+      </p>
     </div>
-    <h1 class="font-lato text-3xl md:text-5xl font-extrabold tracking-tight text-[#FFD04D] leading-tight">
-      Diagnóstico de Maturidade de IA Comercial
-    </h1>
-    <p class="text-muted text-sm md:text-base max-w-2xl mx-auto font-lato">
-      Relatório estruturado de prontidão para habilitar agentes inteligentes como canal de vendas ativo de alta performance no WhatsApp.
+    
+    <div class="shrink-0 space-y-1">
+      <label for="select-sector" class="text-[9px] font-extrabold uppercase tracking-widest text-zinc-400 block font-lato">Setor de Atuação</label>
+      <select 
+        id="select-sector" 
+        class="px-3.5 py-2.5 rounded-xl border border-white/10 bg-[#110f17]/80 text-[#FFD04D] focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-xs font-bold cursor-pointer font-lato transition-all"
+      >
+        <option value="Varejo & E-commerce" selected>Varejo & E-commerce</option>
+        <option value="Saúde & Clínicas">Saúde & Clínicas</option>
+        <option value="Serviços Financeiros">Serviços Financeiros</option>
+        <option value="Tecnologia & SaaS">Tecnologia & SaaS</option>
+        <option value="Logística & Distribuição">Logística & Distribuição</option>
+        <option value="Outros">Outros</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Typographic Score Dashboard (Large 57% & Split Stage Name matching Figma) -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start py-6 border-b border-[#FFD04D]/15">
+    <!-- Left Column: Big Typographic Score -->
+    <div class="md:col-span-5 flex flex-col justify-start">
+      <div class="font-lato font-black text-[7.5rem] md:text-[9.5rem] leading-[0.95] text-white tracking-tighter" id="res-overall-score">
+        57%
+      </div>
+      <div class="space-y-1 text-[10px] md:text-[11px] font-bold uppercase tracking-[0.18em] text-zinc-400 font-lato mt-4">
+        <div id="res-market-average-label">MÉDIA DO MERCADO 63%</div>
+        <div>MATURIDADE GERAL</div>
+        <div class="text-[#FFD04D]" id="res-maturity-stage-label">EM ESTRUTURAÇÃO</div>
+      </div>
+    </div>
+
+    <!-- Right Column: Maturity Description -->
+    <div class="md:col-span-7 space-y-5 md:pt-4">
+      <div class="space-y-1">
+        <span class="text-lg md:text-xl font-light text-[#FFD04D] font-lato tracking-wide block" id="res-maturity-stage-number">Estágio 3</span>
+        <h2 class="font-lato font-bold text-[2.5rem] md:text-[3.75rem] leading-[1.05] text-[#FFD04D] figma-stage-name" id="res-maturity-stage-name">
+          Canal em Estruturação
+        </h2>
+      </div>
+      <div class="figma-stage-desc w-full space-y-4 text-sm md:text-base text-zinc-300 font-lato font-light leading-relaxed">
+        <p id="res-maturity-stage-desc-1">
+          Você já possui fluxos e integrações básicas direcionadas à qualificação ou prospecção de leads.
+        </p>
+        <p id="res-maturity-stage-desc-2" class="text-zinc-400">
+          No entanto, ainda enfrenta gargalos em atribuição de Meta Ads de ponta a ponta e governança comercial para transações seguras.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Informational subtitle -->
+  <div class="py-4">
+    <p class="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 font-lato leading-relaxed max-w-4xl">
+      ABAIXO ESTÃO AS PONTUAÇÕES INDIVIDUAIS PARA CADA UM DOS PILARES DE PRONTIDÃO COMERCIAL, COM OS PONTOS DE MAIOR URGÊNCIA DESTACADOS.
     </p>
   </div>
 
-  <!-- BLOCK 1 — Resumo Executivo (Tilted-highlight glassmorphic box) -->
-  <div class="relative bg-gradient-to-r from-purple-950/20 to-[#110f17]/40 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 space-y-4 overflow-hidden shadow-2xl">
-    <!-- Purple glow background -->
-    <div class="absolute -top-24 -left-24 w-60 h-60 bg-purple-600/15 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute top-0 left-0 w-[5px] h-full bg-gradient-to-b from-purple-600 to-accent"></div>
+  <!-- COLUMN HEADERS (Pill Labels matching Figma) -->
+  <div class="hidden md:grid md:grid-cols-[4rem_1fr_1fr_1fr] gap-6 items-center px-6 mb-2">
+    <!-- Number space -->
+    <div class="w-12"></div>
     
-    <div class="pl-3 md:pl-4 space-y-2 relative z-10">
-      <span class="text-xs font-bold text-accent uppercase tracking-widest font-lato">Bloco 1 — Resumo Executivo</span>
-      <h3 class="font-lato font-black text-2xl md:text-3xl text-foreground leading-tight" id="res-maturity-stage-name">
-        --
-      </h3>
-      <p class="text-sm md:text-base text-muted leading-relaxed font-lato font-medium" id="res-maturity-description">
-        Carregando análise personalizada sobre a maturidade comercial da sua operação...
-      </p>
+    <!-- Header 1 -->
+    <div class="text-center py-2 px-4 rounded-full border border-white/10 bg-[#0c0a10]/80 text-[9px] font-black uppercase tracking-wider text-zinc-300 font-lato shadow-sm">
+      PRINCIPAIS GARGALOS ESTRATÉGICOS
+    </div>
+    
+    <!-- Header 2 -->
+    <div class="text-center py-2 px-4 rounded-full border border-white/10 bg-[#0c0a10]/80 text-[9px] font-black uppercase tracking-wider text-zinc-300 font-lato shadow-sm">
+      SCORES & DIMENSÕES DE REVENUE AI
+    </div>
+    
+    <!-- Header 3 -->
+    <div class="text-center py-2 px-4 rounded-full bg-[#FFD04D] text-[9px] font-black uppercase tracking-wider text-black font-lato shadow-sm">
+      EFICIÊNCIA PROJETADA COM OMNICHAT
     </div>
   </div>
 
-  <!-- BLOCK 2 — Scores & Dimensões (Scores & Dimension Breakdown) -->
-  <div class="space-y-6">
-    <div class="border-b border-white/[0.06] pb-3">
-      <h3 class="font-lato font-bold text-xl text-foreground">Bloco 2 — Scores & Dimensões de Revenue AI</h3>
-      <p class="text-xs text-muted font-lato">Abaixo estão as pontuações individuais para cada um dos pilares de prontidão comercial, com os pontos de maior urgência destacados.</p>
-    </div>
-
-    <div class="grid md:grid-cols-12 gap-6">
-      <!-- Large Gauge (Left) - Glassmorphic widget with gradient matching Image 1 -->
-      <div class="md:col-span-5 bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[320px] shadow-xl">
-        <div class="absolute -top-32 -left-32 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-        <span class="text-xs font-bold uppercase tracking-wider text-muted mb-6 font-lato">Maturidade Geral</span>
-        
-        <!-- Glowing Gauge shadow -->
-        <div class="relative flex items-center justify-center">
-          <div class="absolute inset-0 bg-accent/5 rounded-full blur-xl scale-75"></div>
-          <Gauge idCircle="res-gauge-circle" idScore="res-overall-score" idLabel="res-maturity-label-gauge" />
-        </div>
-        
-        <p class="text-xs text-muted max-w-xs mt-6 leading-relaxed font-lato font-medium">
-          Nível de preparação operacional unificada do seu negócio.
-        </p>
-      </div>
-
-      <!-- 5 Dimension Scores Progress Bars (Right) - Stylish Glass list with glow highlights -->
-      <div class="md:col-span-7 flex flex-col gap-4">
-        <div class="grid gap-4">
-          {dimensions.map((dim, index) => (
-            <div 
-              id={`res-dim${index + 1}-container`} 
-              class="space-y-3 p-4.5 rounded-2xl border border-white/[0.06] bg-[#110f17]/30 hover:bg-[#110f17]/50 backdrop-blur-md transition-all duration-300 relative overflow-hidden group shadow-md"
-            >
-              <!-- Horizontal light border inside -->
-              <div class="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/[0.03] to-transparent"></div>
+  <!-- THE ACCORDION SYSTEM (All 5 Rows Fully Unlocked and Interactive) -->
+  <div class="space-y-5 md:space-y-6">
+    {dimensions.map((dim, index) => {
+      const numStr = (index + 1) < 10 ? `0${index + 1}` : `${index + 1}`;
+      const isActive = index === 0 ? "active" : ""; // First item open by default
+      const contentClass = index === 0 ? "" : "hidden";
+      const iconText = index === 0 ? "-" : "+";
+      const iconClass = index === 0 ? "bg-white text-black font-bold text-xl" : "bg-[#FFD04D] text-black font-bold text-lg";
+      
+      return (
+        <div 
+          class={`accordion-item border border-white/[0.06] rounded-[2rem] bg-[#110f17]/40 backdrop-blur-xl transition-all duration-300 ${isActive}`} 
+          data-index={index + 1}
+        >
+          <!-- Accordion trigger -->
+          <button class="accordion-trigger w-full flex items-center justify-between p-6 md:p-8 outline-none text-left select-none cursor-pointer">
+            <div class="flex items-center gap-4 md:gap-6">
+              <span class="font-lato font-extrabold text-xl md:text-2xl text-zinc-500">{numStr}.</span>
+              <div class="space-y-0.5">
+                <h4 class="font-lato font-extrabold text-lg md:text-xl text-white">{dim.name.replace(/^\d+\.\s*/, '')}</h4>
+                <p class="text-xs text-zinc-400 font-lato hidden sm:block">{dim.description}</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <span class="font-mono font-extrabold text-base md:text-lg text-[#FFD04D] mr-2" id={`res-dim${index + 1}-score-collapsed`} style={index === 0 ? "display: none;" : "display: inline;"}>0%</span>
+              <div class={`accordion-icon h-10 w-10 shrink-0 rounded-full flex items-center justify-center shadow-md transition-all ${iconClass}`}>
+                {iconText}
+              </div>
+            </div>
+          </button>
+          
+          <!-- Accordion Content -->
+          <div class={`accordion-content border-t border-white/[0.04] p-6 md:p-8 pt-0 ${contentClass}`}>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6">
               
-              <div class="flex justify-between items-center relative z-10">
-                <span class="text-xs font-bold text-muted uppercase tracking-wider font-lato block group-hover:text-foreground transition-colors">{dim.name}</span>
-                <div class="flex items-center gap-2.5">
-                  <span id={`res-dim${index + 1}-warning`} class="hidden text-amber-500 text-[10px] font-extrabold flex items-center gap-1 uppercase tracking-widest font-lato px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/20">
-                    ⚠️ Gargalo
+              <!-- Card 1: Gargalo -->
+              <div 
+                id={`res-dim${index + 1}-card1`}
+                class={`bg-white rounded-3xl shadow-xl border border-zinc-100 flex flex-col justify-start text-black transition-all duration-300 ${index === 0 ? "p-6 min-h-[180px]" : "p-5 min-h-[70px]"}`}
+              >
+                <div class="space-y-3">
+                  <span class={`text-[9px] font-black uppercase tracking-wider text-zinc-400 block font-lato card-label ${index === 0 ? "" : "hidden"}`}>
+                    PRINCIPAIS GARGALOS ESTRATÉGICOS
                   </span>
-                  <span class="font-extrabold font-mono text-sm text-accent" id={`res-dim${index + 1}-score`}>0%</span>
+                  <h4 class="font-lato font-black text-lg text-zinc-900">{dim.name.replace(/^\d+\.\s*/, '')}</h4>
+                  <p 
+                    id={`res-dim${index + 1}-bottleneck`}
+                    class={`text-xs text-zinc-700 leading-relaxed font-medium card-paragraph ${index === 0 ? "" : "hidden"}`}
+                  >
+                    Carregando...
+                  </p>
                 </div>
               </div>
-              
-              <div class="relative">
-                <div class="absolute inset-0 bg-accent/5 blur-[4px] rounded-full"></div>
-                <Progress id={`res-dim${index + 1}-bar`} height="sm" value="0%" class="relative z-10 !bg-white/5" />
+
+              <!-- Card 2: Score -->
+              <div 
+                id={`res-dim${index + 1}-card2`}
+                class={`rounded-3xl shadow-xl flex flex-col justify-between text-black transition-all duration-300 ${index === 0 ? "bg-[#9df09e] p-6 min-h-[180px]" : "bg-[#fffde6] p-5 min-h-[70px]"}`}
+              >
+                <div class="space-y-1.5">
+                  <span class={`text-[9px] font-black uppercase tracking-wider text-zinc-600 block font-lato card-label ${index === 0 ? "" : "hidden"}`}>
+                    SCORES & DIMENSÕES DE REVENUE AI
+                  </span>
+                  <p class="text-[11px] leading-snug font-lato font-semibold text-zinc-800">{dim.description}</p>
+                </div>
+                
+                <div 
+                  id={`res-dim${index + 1}-score-block`}
+                  class={`space-y-1 mt-4 card-score-block ${index === 0 ? "" : "hidden"}`}
+                >
+                  <div class="font-lato font-black text-5xl leading-none" id={`res-dim${index + 1}-score-big`}>0%</div>
+                  <div 
+                    id={`res-dim${index + 1}-badge`}
+                    class="text-[8px] font-black uppercase tracking-widest bg-black text-white px-2.5 py-1.5 rounded-full inline-block text-center mt-2.5"
+                  >
+                    SCORE POSITIVO ACIMA DA MÉDIA
+                  </div>
+                </div>
               </div>
-              
-              <p class="text-[11px] text-muted/80 leading-snug font-lato font-medium relative z-10">{dim.description}</p>
+
+              <!-- Card 3: Eficiência -->
+              <div 
+                id={`res-dim${index + 1}-card3`}
+                class={`bg-[#FFD04D] rounded-3xl shadow-xl flex flex-col justify-start text-black transition-all duration-300 ${index === 0 ? "p-6 min-h-[180px]" : "p-5 min-h-[70px]"}`}
+              >
+                <div class="space-y-3">
+                  <span class={`text-[9px] font-black uppercase tracking-wider text-zinc-600 block font-lato card-label ${index === 0 ? "" : "hidden"}`}>
+                    EFICIÊNCIA PROJETADA COM OMNICHAT
+                  </span>
+                  <h4 class="font-lato font-black text-lg text-zinc-900" id={`res-dim${index + 1}-efficiency-title`}>Carregando...</h4>
+                  <p 
+                    id={`res-dim${index + 1}-efficiency-desc`}
+                    class={`text-xs text-zinc-850 leading-relaxed font-medium card-paragraph ${index === 0 ? "" : "hidden"}`}
+                  >
+                    Carregando...
+                  </p>
+                </div>
+              </div>
+
             </div>
-          ))}
-        </div>
-      </div>
-    </div>
-
-    <!-- Alerta de Risco Operacional (Alta Autonomia com Baixa Governança) -->
-    <div id="res-risk-alert-box" class="hidden bg-red-950/20 border border-red-500/20 rounded-[2rem] p-6 md:p-8 space-y-4 animate-pulse shadow-lg shadow-red-950/10">
-      <div class="flex items-start gap-4">
-        <div class="h-11 w-11 shrink-0 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 flex items-center justify-center">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-          </svg>
-        </div>
-        <div class="space-y-2">
-          <h4 class="font-lato font-extrabold text-lg text-red-400">Alerta de Risco Operacional: Alta Autonomia com Baixa Governança</h4>
-          <p class="text-sm text-foreground/80 leading-relaxed font-lato font-medium">
-            Sua operação possui um alto nível de autonomia e flexibilidade na tomada de decisões pela IA, porém as suas regras sistêmicas e políticas de governança estão baixas. Isso cria uma perigosa zona de vulnerabilidade jurídica e financeira para sua empresa, expondo o canal conversacional a possíveis alucinações comerciais, erros de precificação, vazamento de dados ou termos indevidos sem travas de controle.
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- BLOCK 3 — Principais Gargalos (Primary Bottlenecks) -->
-  <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 space-y-5 shadow-xl relative overflow-hidden">
-    <div class="absolute -bottom-24 -left-24 w-60 h-60 bg-amber-500/[0.02] rounded-full blur-3xl pointer-events-none"></div>
-    <div class="flex items-center gap-3.5 relative z-10">
-      <div class="h-11 w-11 shrink-0 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-500 flex items-center justify-center">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-        </svg>
-      </div>
-      <div>
-        <h3 class="font-lato font-extrabold text-xl text-foreground">Bloco 3 — Principais Gargalos Estratégicos</h3>
-        <p class="text-xs text-muted font-lato">Obstáculos operacionais inferidos a partir das suas respostas e nível de prontidão.</p>
-      </div>
-    </div>
-    <ul id="inferred-bottlenecks" class="grid sm:grid-cols-2 gap-4 pt-2 relative z-10">
-      <!-- Dynamically filled list -->
-    </ul>
-  </div>
-
-  <!-- BLOCK 4 — Mercado e Benchmark Setorial (Market & Sector Benchmark) -->
-  <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 space-y-6 shadow-xl relative overflow-hidden">
-    <div class="absolute -top-32 -right-32 w-64 h-64 bg-purple-500/[0.03] rounded-full blur-3xl pointer-events-none"></div>
-    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-white/[0.06] pb-4 relative z-10">
-      <div class="space-y-1">
-        <h3 class="font-lato font-bold text-xl text-foreground">Bloco 4 — Mercado e Benchmark Setorial</h3>
-        <p class="text-xs text-muted font-lato">Adote padrões de maturidade específicos para impulsionar seu segmento.</p>
-      </div>
-      <div class="shrink-0 space-y-1">
-        <label for="select-sector" class="text-[9px] font-extrabold uppercase tracking-widest text-muted block font-lato">Setor de Atuação</label>
-        <select 
-          id="select-sector" 
-          class="px-3.5 py-2.5 rounded-xl border border-white/10 bg-[#14121b] text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none text-xs font-bold cursor-pointer font-lato transition-all"
-        >
-          <option value="Varejo & E-commerce" selected>Varejo & E-commerce</option>
-          <option value="Saúde & Clínicas">Saúde & Clínicas</option>
-          <option value="Serviços Financeiros">Serviços Financeiros</option>
-          <option value="Tecnologia & SaaS">Tecnologia & SaaS</option>
-          <option value="Logística & Distribuição">Logística & Distribuição</option>
-          <option value="Outros">Outros</option>
-        </select>
-      </div>
-    </div>
-    <div id="market-benchmark" class="text-sm text-foreground/80 leading-relaxed font-lato font-medium bg-purple-950/15 p-5 rounded-2xl border border-purple-500/20 relative z-10 shadow-inner">
-      <!-- Dynamically filled paragraph -->
-    </div>
-  </div>
-
-  <!-- BLOCK 5 — Eficiência Projetada (Projected Efficiency) -->
-  <div class="bg-gradient-to-br from-purple-950/10 to-accent/[0.01] border border-purple-500/20 rounded-[2rem] p-6 md:p-8 space-y-5 shadow-xl relative overflow-hidden">
-    <div class="absolute top-0 right-0 w-32 h-32 bg-purple-600/[0.05] rounded-full blur-2xl pointer-events-none"></div>
-    <div class="flex items-center gap-3.5 relative z-10">
-      <div class="h-11 w-11 shrink-0 rounded-xl bg-purple-500/10 border border-purple-500/20 text-purple-400 flex items-center justify-center">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-        </svg>
-      </div>
-      <div>
-        <h3 class="font-lato font-extrabold text-xl text-foreground">Bloco 5 — Eficiência Projetada com OmniChat + Parceiro</h3>
-        <p class="text-xs text-muted font-lato">Estimativa consultiva de performance ao estruturar canais inteligentes integrados.</p>
-      </div>
-    </div>
-    <div id="projected-efficiency" class="grid sm:grid-cols-2 gap-4 pt-2 relative z-10">
-      <!-- Dynamically filled grid items -->
-    </div>
-  </div>
-
-  <!-- BLOCK 6 — Plano de Ação (90-Day Action Plan) -->
-  <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 space-y-5 shadow-xl relative overflow-hidden">
-    <div class="absolute -top-32 -left-32 w-64 h-64 bg-emerald-500/[0.02] rounded-full blur-3xl pointer-events-none"></div>
-    <div class="flex items-center gap-3.5 border-b border-white/[0.06] pb-4 relative z-10">
-      <div class="h-11 w-11 shrink-0 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center">
-        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-        </svg>
-      </div>
-      <div>
-        <h3 class="font-lato font-extrabold text-xl text-foreground">Bloco 6 — Plano de Ação Estratégico (90 Dias)</h3>
-        <p class="text-xs text-muted font-lato">Ações prioritárias organizadas cronologicamente para sua liderança e equipe.</p>
-      </div>
-    </div>
-    <div id="action-plan" class="space-y-4 pt-2 relative z-10">
-      <!-- Dynamically filled list -->
-    </div>
-  </div>
-
-  <!-- BLOCK 7 — Case do Setor (Industry Success Case) -->
-  <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 space-y-6 relative overflow-hidden shadow-2xl">
-    <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-purple-500/[0.05] rounded-full blur-3xl pointer-events-none"></div>
-    <div class="flex items-center gap-3 relative z-10">
-      <span class="px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest bg-accent/10 text-accent rounded-full border border-accent/20 font-lato">Bloco 7 — Case de Sucesso Recomendado</span>
-    </div>
-    
-    <div class="space-y-4 relative z-10">
-      <div class="space-y-1.5">
-        <div class="flex items-baseline gap-2.5 flex-wrap">
-          <h4 class="font-lato font-black text-2xl md:text-3xl text-foreground leading-tight" id="success-case-brand">--</h4>
-          <span class="text-[10px] text-muted font-bold uppercase tracking-widest font-lato px-2 py-0.5 rounded bg-white/5 border border-white/10" id="success-case-segment">--</span>
-        </div>
-        <p class="text-base md:text-lg font-extrabold text-emerald-400 font-lato leading-tight" id="success-case-result">--</p>
-      </div>
-      
-      <div class="grid sm:grid-cols-3 gap-6 pt-5 border-t border-white/[0.06] font-normal font-lato">
-        <div class="space-y-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-muted block">Problema Enfrentado</span>
-          <p class="text-xs text-foreground/80 leading-relaxed font-medium" id="success-case-problem">--</p>
-        </div>
-        <div class="space-y-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-muted block">Abordagem Adotada</span>
-          <p class="text-xs text-foreground/80 leading-relaxed font-medium" id="success-case-approach">--</p>
-        </div>
-        <div class="space-y-2">
-          <span class="text-xs font-bold uppercase tracking-wider text-accent block">Takeaway Estratégico</span>
-          <p class="text-xs text-accent/90 leading-relaxed font-semibold italic shadow-sm" id="success-case-takeaway">--</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- COMPARISON TABLE (High-Contrast comparison) -->
-  <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 space-y-6 shadow-xl relative overflow-hidden">
-    <div class="border-b border-white/[0.06] pb-3">
-      <h3 class="font-lato font-bold text-xl text-foreground">Como o seu Canal Conversacional vai evoluir</h3>
-      <p class="text-xs text-muted font-lato">Mapeamento da transformação operacional de canais passivos para canais de receita.</p>
-    </div>
-    
-    <div class="grid gap-5 pt-2">
-      {comparisonMetrics.map(m => (
-        <div class="grid md:grid-cols-2 gap-4 p-4.5 rounded-xl border border-white/[0.04] bg-white/[0.01]">
-          <div>
-            <span class="text-[10px] font-extrabold uppercase tracking-widest text-red-400 block mb-2 font-lato">⚠️ Operação Atual (Como está)</span>
-            <p class="text-sm font-lato font-medium text-muted">{m.current}</p>
-          </div>
-          <div class="border-t md:border-t-0 md:border-l border-white/[0.06] pt-3 md:pt-0 md:pl-5">
-            <span class="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400 block mb-2 font-lato">🎯 Com Revenue AI (Como deve ser)</span>
-            <p class="text-sm font-lato font-bold text-foreground">{m.ideal}</p>
           </div>
         </div>
-      ))}
-    </div>
+      );
+    })}
   </div>
 
-  <!-- Call To Action (Unlock Full Report) - Smooth metallic dark gradient card -->
-  <div class="relative bg-gradient-to-br from-[#12101a] via-[#161421] to-[#09070e] border border-purple-500/30 rounded-[2rem] p-8 text-center space-y-6 overflow-hidden shadow-2xl">
-    <div class="absolute -top-32 -left-32 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/10 via-transparent to-transparent pointer-events-none"></div>
+  <!-- RISK ALERT SECTION (Dynamic Warning Box matching APHO styles) -->
+  <div id="res-risk-alert-box" class="hidden py-8 border-t border-[#FFD04D]/15 space-y-4 relative z-10 animate-fade-in">
+    <div class="space-y-1">
+      <h3 class="font-lato font-extrabold md:text-3xl text-[#FFD04D] text-5xl">Alerta de Risco Operacional:</h3>
+      <p class="font-lato font-light md:text-2xl text-[#FFD04D]/80 text-4xl">Alta Autonomia com Baixa Governança</p>
+    </div>
+    <p class="font-lato font-light max-w-4xl tracking-wide text-lg normal-case text-left not-italic text-[#ffffff]">
+      Sua operação possui um alto nível de autonomia e flexibilidade na tomada de decisões pela IA, porém as suas regras sistêmicas e políticas de governança estão baixas. Isso cria uma perigosa zona de vulnerabilidade jurídica e financeira para sua empresa, expondo o canal conversacional a possíveis alucinações comerciais, erros de precificação, vazamento de dados ou termos indevidos sem travas de controle.
+    </p>
+  </div>
 
-    <div class="max-w-xl mx-auto space-y-4 relative z-10">
-      <h3 class="font-lato font-black text-2xl md:text-3xl tracking-tight text-white">Deseja liberar seu plano de ação detalhado?</h3>
-      <p class="text-sm text-zinc-300 font-lato font-medium leading-relaxed">
-        Personalizamos um relatório estratégico corporativo completo em PDF e uma simulação guiada direto no seu WhatsApp comercial, baseando-se em cada uma das suas respostas.
+  <!-- MERCADO E BENCHMARK SETORIAL (2-Column Typographic Layout matching Figma) -->
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 py-12 border-t border-[#FFD04D]/15 items-start relative z-10">
+    <!-- Left Column: Title + Description -->
+    <div class="md:col-span-6 space-y-6">
+      <div class="space-y-0.5">
+        <h3 class="font-lato font-black text-4xl md:text-5xl text-[#FFD04D] leading-none uppercase tracking-wide">
+          mercado e
+        </h3>
+        <h3 class="font-lato font-black text-4xl md:text-5xl text-[#FFD04D] leading-none uppercase tracking-wide">
+          benchmark
+        </h3>
+        <h3 class="font-lato font-black text-4xl md:text-5xl text-[#FFD04D] leading-none uppercase tracking-wide">
+          setorial
+        </h3>
+      </div>
+      <p id="res-market-facts-desc" class="text-zinc-400 text-sm font-lato font-light leading-relaxed max-w-lg lowercase">
+        no varejo digital brasileiro, mais de 78% dos carrinhos são abandonados. marcas líderes de e-commerce que adotam agentes comerciais de ia com atribuição fechada alcançam uma conversão de vendas até 4.2x maior que canais tradicionais de e-mail e sms.
       </p>
-      <div class="pt-2">
-        <Button 
-          id="btn-unlock-report"
-          class="px-8 py-4.5 text-sm font-extrabold uppercase tracking-[0.08em] flex items-center justify-center gap-2.5 mx-auto !rounded-xl !bg-purple-600 hover:!bg-purple-500 shadow-lg shadow-purple-600/25 border-0 !text-white"
-        >
-          Liberar Diagnóstico no WhatsApp
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </div>
+
+    <!-- Right Column: Big Statistic -->
+    <div class="md:col-span-6 space-y-4 md:pt-2">
+      <div id="res-market-stat-number" class="font-lato font-bold text-[7.5rem] md:text-[9.5rem] leading-[0.95] text-white tracking-tighter">
+        4.2x
+      </div>
+      <p id="res-market-stat-label" class="text-zinc-400 text-sm font-lato font-light leading-relaxed max-w-sm lowercase">
+        é o aumento de conversão de vendas que adota agentes comerciais para sua operação
+      </p>
+    </div>
+  </div>
+
+  <!-- Call To Action (Unlock Full Report) - Premium metallic dark gradient card matching Figma -->
+  <div class="py-10 border-t border-[#FFD04D]/15 relative z-10 flex justify-center">
+    <div class="relative w-full max-w-4xl bg-gradient-to-br from-[#12101a] via-[#161421] to-[#09070e]/95 border border-[#FFD04D]/25 rounded-[2rem] p-8 md:p-12 text-center space-y-6 overflow-hidden shadow-2xl backdrop-blur-md">
+      <div class="absolute -top-32 -left-32 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-accent/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900/10 via-transparent to-transparent pointer-events-none"></div>
+
+      <div class="max-w-xl mx-auto space-y-5 relative z-10 flex flex-col items-center">
+        <div class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-purple-500/10 border border-purple-500/20 text-[#FFD04D] mb-2 shadow-inner">
+          <svg class="w-5 h-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
           </svg>
-        </Button>
+        </div>
+        <h3 class="font-lato font-black text-2xl md:text-3.5xl tracking-tight text-white leading-tight">Deseja liberar seu plano de ação detalhado?</h3>
+        <p class="text-sm text-zinc-300 font-lato font-light leading-relaxed">
+          Personalizamos um relatório estratégico corporativo completo em PDF e uma simulação guiada direto no seu WhatsApp comercial, baseando-se em cada uma das suas respostas.
+        </p>
+        <div class="pt-4 w-full sm:w-auto">
+          <Button 
+            id="btn-unlock-report"
+            class="px-10 py-4.5 text-xs font-black uppercase tracking-[0.12em] flex items-center justify-center gap-3 mx-auto !rounded-full !bg-[#9400FF] hover:!bg-[#8100EB] shadow-lg shadow-purple-600/30 border border-purple-500/40 !text-white transition-all hover:scale-[1.03] active:scale-[0.99]"
+          >
+            Liberar Diagnóstico no WhatsApp
+            <svg class="w-4.5 h-4.5 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C16.59 2.016 14.135 1 11.997 1 6.562 1 2.135 5.371 2.131 10.8c-.001 1.76.474 3.478 1.38 5.003L2.503 21.1l5.411-1.419c.11.06.222.114.333.165zM17.115 14c-.28-.14-1.655-.815-1.912-.91-.256-.092-.443-.14-.63.14-.187.28-.724.91-.887 1.095-.164.186-.328.21-.608.07-.28-.14-1.182-.435-2.251-1.39-.831-.742-1.393-1.658-1.556-1.938-.163-.28-.017-.431.122-.571.125-.125.28-.327.42-.49.14-.163.187-.28.28-.467.094-.187.047-.35-.024-.49-.07-.14-.63-1.517-.862-2.078-.227-.547-.457-.473-.63-.482-.163-.008-.35-.01-.537-.01-.187 0-.49.07-.747.35-.257.28-.981.958-.981 2.333 0 1.375.999 2.702 1.14 2.888.14.187 1.966 3.004 4.761 4.21.665.286 1.184.457 1.588.585.668.213 1.277.182 1.758.11.536-.08 1.655-.677 1.887-1.332.234-.655.234-1.215.164-1.332-.07-.116-.257-.186-.537-.326z"/>
+            </svg>
+          </Button>
+        </div>
       </div>
     </div>
   </div>
+
 </section>
+
+<!-- Accordion Client Script -->
+<script>
+  function setupAccordion() {
+    const items = document.querySelectorAll('.accordion-item');
+    items.forEach(item => {
+      const trigger = item.querySelector('.accordion-trigger');
+      const content = item.querySelector('.accordion-content');
+      const icon = item.querySelector('.accordion-icon');
+      const index = item.getAttribute('data-index');
+      const scoreCollapsed = document.getElementById(`res-dim${index}-score-collapsed`);
+
+      if (!trigger) return;
+
+      // Guard: ensure each trigger is wired with exactly one click handler
+      if ((trigger as HTMLElement).dataset.accordionWired === '1') return;
+      (trigger as HTMLElement).dataset.accordionWired = '1';
+
+      trigger.addEventListener('click', () => {
+        const isCurrentlyActive = item.classList.contains('active');
+
+        // Close all other items
+        items.forEach(otherItem => {
+          if (otherItem !== item) {
+            otherItem.classList.remove('active');
+            otherItem.querySelector('.accordion-content')?.classList.add('hidden');
+            
+            const otherIndex = otherItem.getAttribute('data-index');
+            const otherScoreCollapsed = document.getElementById(`res-dim${otherIndex}-score-collapsed`);
+            if (otherScoreCollapsed) otherScoreCollapsed.style.display = 'inline';
+
+            const otherIcon = otherItem.querySelector('.accordion-icon');
+            if (otherIcon) {
+              otherIcon.textContent = '+';
+              otherIcon.className = "accordion-icon h-10 w-10 shrink-0 rounded-full bg-[#FFD04D] text-black flex items-center justify-center font-bold text-lg shadow-md transition-all";
+            }
+
+            // Close cards of other item
+            const card1 = document.getElementById(`res-dim${otherIndex}-card1`);
+            const card2 = document.getElementById(`res-dim${otherIndex}-card2`);
+            const card3 = document.getElementById(`res-dim${otherIndex}-card3`);
+
+            if (card1) {
+              card1.className = "bg-white rounded-3xl p-5 shadow-md border border-zinc-100 min-h-[70px] text-black transition-all duration-300";
+              card1.querySelector('.card-label')?.classList.add('hidden');
+              card1.querySelector('.card-paragraph')?.classList.add('hidden');
+            }
+            if (card2) {
+              card2.className = "bg-[#fffde6] rounded-3xl p-5 shadow-md min-h-[70px] text-black transition-all duration-300";
+              card2.querySelector('.card-label')?.classList.add('hidden');
+              card2.querySelector('.card-score-block')?.classList.add('hidden');
+            }
+            if (card3) {
+              card3.className = "bg-[#FFD04D]/90 rounded-3xl p-5 shadow-md min-h-[70px] text-black transition-all duration-300";
+              card3.querySelector('.card-label')?.classList.add('hidden');
+              card3.querySelector('.card-paragraph')?.classList.add('hidden');
+            }
+          }
+        });
+
+        // Toggle current item
+        const card1 = document.getElementById(`res-dim${index}-card1`);
+        const card2 = document.getElementById(`res-dim${index}-card2`);
+        const card3 = document.getElementById(`res-dim${index}-card3`);
+
+        if (isCurrentlyActive) {
+          item.classList.remove('active');
+          content?.classList.add('hidden');
+          if (scoreCollapsed) scoreCollapsed.style.display = 'inline';
+          if (icon) {
+            icon.textContent = '+';
+            icon.className = "accordion-icon h-10 w-10 shrink-0 rounded-full bg-[#FFD04D] text-black flex items-center justify-center font-bold text-lg shadow-md transition-all";
+          }
+
+          if (card1) {
+            card1.className = "bg-white rounded-3xl p-5 shadow-md border border-zinc-100 min-h-[70px] text-black transition-all duration-300";
+            card1.querySelector('.card-label')?.classList.add('hidden');
+            card1.querySelector('.card-paragraph')?.classList.add('hidden');
+          }
+          if (card2) {
+            card2.className = "bg-[#fffde6] rounded-3xl p-5 shadow-md min-h-[70px] text-black transition-all duration-300";
+            card2.querySelector('.card-label')?.classList.add('hidden');
+            card2.querySelector('.card-score-block')?.classList.add('hidden');
+          }
+          if (card3) {
+            card3.className = "bg-[#FFD04D]/90 rounded-3xl p-5 shadow-md min-h-[70px] text-black transition-all duration-300";
+            card3.querySelector('.card-label')?.classList.add('hidden');
+            card3.querySelector('.card-paragraph')?.classList.add('hidden');
+          }
+        } else {
+          item.classList.add('active');
+          content?.classList.remove('hidden');
+          if (scoreCollapsed) scoreCollapsed.style.display = 'none';
+          if (icon) {
+            icon.textContent = '-';
+            icon.className = "accordion-icon h-10 w-10 shrink-0 rounded-full bg-white text-black flex items-center justify-center font-bold text-xl shadow-md transition-all";
+          }
+
+          if (card1) {
+            card1.className = "bg-white rounded-3xl p-6 shadow-xl border border-zinc-100 min-h-[180px] text-black transition-all duration-300";
+            card1.querySelector('.card-label')?.classList.remove('hidden');
+            card1.querySelector('.card-paragraph')?.classList.remove('hidden');
+          }
+          if (card2) {
+            const bgClass = card2.getAttribute('data-bg-class') || 'bg-[#9df09e]';
+            card2.className = `${bgClass} rounded-3xl p-6 shadow-xl min-h-[180px] text-black transition-all duration-300`;
+            card2.querySelector('.card-label')?.classList.remove('hidden');
+            card2.querySelector('.card-score-block')?.classList.remove('hidden');
+          }
+          if (card3) {
+            card3.className = "bg-[#FFD04D] rounded-3xl p-6 shadow-xl min-h-[180px] text-black transition-all duration-300";
+            card3.querySelector('.card-label')?.classList.remove('hidden');
+            card3.querySelector('.card-paragraph')?.classList.remove('hidden');
+          }
+        }
+      });
+    });
+  }
+
+  // Single idempotent init (handler guard prevents any double-binding)
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupAccordion);
+  } else {
+    setupAccordion();
+  }
+</script>
+
+<style is:global>
+  @media (min-width: 768px) {
+    .figma-stage-desc {
+      display: flex !important;
+      width: 38.8125rem !important;
+      height: 12.8125rem !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+    }
+    .figma-stage-name {
+      font-size: 3.75rem !important; /* 60px */
+      line-height: 1.1 !important;
+    }
+  }
+</style>
