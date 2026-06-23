@@ -127,91 +127,224 @@ import logoOmnichat from '../image/logo-omnichat.svg';
   </div>
 
   <!-- Success State (Hidden initially) -->
-  <div id="lead-success-container" class="hidden space-y-8 max-w-2xl mx-auto">
+  <div id="lead-success-container" class="hidden space-y-12 max-w-5xl mx-auto w-full">
     
-    <div class="bg-gradient-to-br from-[#121019] to-[#0d0b12] border border-purple-500/20 rounded-[2.5rem] p-8 text-center space-y-6 shadow-2xl relative overflow-hidden">
-      <!-- Glow background -->
-      <div class="absolute -top-32 -left-32 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-emerald-500/[0.03] rounded-full blur-3xl pointer-events-none"></div>
-
-      <!-- Success Icon -->
-      <div class="relative inline-flex items-center justify-center h-16 w-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 mb-2">
-        <div class="absolute inset-0 bg-emerald-500/10 blur-[8px] rounded-full"></div>
-        <svg class="w-8 h-8 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
-        </svg>
-      </div>
-      
-      <h1 class="font-lato text-3xl md:text-4xl font-extrabold tracking-tight text-[#FFD04D]">Diagnóstico Pronto!</h1>
-      <p class="text-zinc-300 text-sm md:text-base font-body font-normal leading-relaxed">
-        Clique no botão verde abaixo para iniciar a conversa no WhatsApp oficial da nossa assessoria. Com base nas suas pontuações e nos cases recomendados para o seu cenário, iniciaremos um funil conversacional personalizado e enviaremos o seu Plano de Ação Estratégico de Revenue AI!
+    <!-- Header Block -->
+    <div class="text-center space-y-4">
+      <h1 class="font-lato text-3xl md:text-5xl font-light text-[#FFD04D] leading-tight tracking-tight max-w-4xl mx-auto">
+        Com base na sua pontuação, <br class="hidden md:inline" />elaboramos um plano estratégico personalizado.
+      </h1>
+      <p class="text-zinc-400 text-sm md:text-base max-w-2xl mx-auto font-body font-normal leading-relaxed">
+        Em breve, você receberá sua trilha personalizada diretamente no seu e-mail e via WhatsApp.
       </p>
+    </div>
 
-      <!-- WhatsApp CTA Button -->
-      <div class="pt-2">
-        <Button 
-          id="btn-open-whatsapp"
+    <!-- Bloco 6 — Plano de Ação Estratégico (90 Dias) -->
+    <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 shadow-2xl space-y-8">
+      
+      <!-- Card Title Header with Icon -->
+      <div class="flex items-start gap-4">
+        <!-- Clipboard Icon -->
+        <div class="h-12 w-12 shrink-0 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center shadow-lg shadow-emerald-500/5">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+          </svg>
+        </div>
+        <div class="space-y-1 text-left">
+          <h2 class="font-lato font-bold text-lg md:text-xl text-foreground">Bloco 6 — Plano de Ação Estratégico (90 Dias)</h2>
+          <p class="text-xs text-zinc-400 font-body">Ações prioritárias organizadas cronologicamente para sua liderança e equipe.</p>
+        </div>
+      </div>
+
+      <!-- Action Plan Columns (Populated dynamically in JS, but initialized with high-quality skeleton matching image) -->
+      <div id="action-plan" class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
+        <!-- Column 1 -->
+        <div class="bg-white/[0.01] border border-white/[0.06] p-6 rounded-2xl relative space-y-4">
+          <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-[#FF5555] text-white flex items-center justify-center font-body font-extrabold text-xs border border-[#110f17]">1</div>
+          <span class="text-xs font-bold text-[#FF5555] uppercase tracking-wider block font-body">DIAS 1 A 30: ALINHAMENTO ESTRATÉGICO</span>
+          <p class="text-xs text-zinc-400 leading-relaxed font-body font-normal">Definir metas explícitas de vendas e receita vinculadas à IA comercial. Desenhar a jornada comercial de prospecção e os fluxos conversacionais ativos.</p>
+        </div>
+        <!-- Column 2 -->
+        <div class="bg-white/[0.01] border border-white/[0.06] p-6 rounded-2xl relative space-y-4">
+          <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-[#FF5555] text-white flex items-center justify-center font-body font-extrabold text-xs border border-[#110f17]">2</div>
+          <span class="text-xs font-bold text-[#FF5555] uppercase tracking-wider block font-body">DIAS 31 A 60: IMPLEMENTAÇÃO DE RECUPERAÇÃO</span>
+          <p class="text-xs text-zinc-400 leading-relaxed font-body font-normal">Configurar e lançar réguas automáticas de recuperação de carrinhos abandonados, boletos vencidos ou leads inativos diretamente no WhatsApp.</p>
+        </div>
+        <!-- Column 3 -->
+        <div class="bg-white/[0.01] border border-white/[0.06] p-6 rounded-2xl relative space-y-4">
+          <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-[#FF5555] text-white flex items-center justify-center font-body font-extrabold text-xs border border-[#110f17]">3</div>
+          <span class="text-xs font-bold text-[#FF5555] uppercase tracking-wider block font-body">DIAS 61 A 90: ESCALA DE VENDAS ATIVAS</span>
+          <p class="text-xs text-zinc-400 leading-relaxed font-body font-normal">Orquestrar abordagens ativas outbound personalizadas baseadas no comportamento de compra e histórico, maximizando o LTV.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scenario Comparison Card -->
+    <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-8 shadow-2xl space-y-8 text-left">
+      <div class="space-y-1">
+        <h2 class="font-lato font-bold text-lg md:text-xl text-foreground">Cenário Atual (Manual/Reativo) vs. Cenário com Revenue AI</h2>
+        <p class="text-xs text-zinc-400 font-body">Diferença de eficiência, velocidade e escala ao migrar para uma infraestrutura moderna de Revenue AI.</p>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Row 1 -->
+        <div class="space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 font-body block">POSICIONAMENTO E PAPEL COMERCIAL</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Operação Atual -->
+            <div class="bg-red-500/[0.02] border border-red-500/10 rounded-xl px-5 py-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-red-500/80 uppercase tracking-wider font-body">Operação Atual</span>
+              <span class="text-sm font-bold text-red-400 font-body text-right">Apenas FAQ / suporte reativo</span>
+            </div>
+            <!-- Com Revenue AI -->
+            <div class="bg-emerald-500/[0.02] border border-emerald-500/10 rounded-xl px-5 py-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-emerald-500/80 uppercase tracking-wider font-body">Com Revenue AI</span>
+              <span class="text-sm font-bold text-emerald-400 font-body text-right">Jornada de Vendas Ativa e Autônoma</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 2 -->
+        <div class="space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 font-body block">ATRIBUIÇÃO DE MÍDIA PAGA (META ADS)</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Operação Atual -->
+            <div class="bg-red-500/[0.02] border border-red-500/10 rounded-xl px-5 py-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-red-500/80 uppercase tracking-wider font-body">Operação Atual</span>
+              <span class="text-sm font-bold text-red-400 font-body text-right">Mídia sem Atribuição ou Manual</span>
+            </div>
+            <!-- Com Revenue AI -->
+            <div class="bg-emerald-500/[0.02] border border-emerald-500/10 rounded-xl px-5 py-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-emerald-500/80 uppercase tracking-wider font-body">Com Revenue AI</span>
+              <span class="text-sm font-bold text-emerald-400 font-body text-right">Integração API de Conversões 100%</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Row 3 -->
+        <div class="space-y-2">
+          <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-500 font-body block">GOVERNANÇA COMERCIAL E HANDOFF</span>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <!-- Operação Atual -->
+            <div class="bg-red-500/[0.02] border border-red-500/10 rounded-xl px-5 py-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-red-500/80 uppercase tracking-wider font-body">Operação Atual</span>
+              <span class="text-sm font-bold text-red-400 font-body text-right">Handoff Manual e Sem Contexto</span>
+            </div>
+            <!-- Com Revenue AI -->
+            <div class="bg-emerald-500/[0.02] border border-emerald-500/10 rounded-xl px-5 py-4 flex items-center justify-between">
+              <span class="text-xs font-semibold text-emerald-500/80 uppercase tracking-wider font-body">Com Revenue AI</span>
+              <span class="text-sm font-bold text-emerald-400 font-body text-right">Handoff Inteligente com Travas</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case Study Showcase Card (Premium White Card) -->
+    <div id="success-case-card-premium" class="bg-white text-zinc-900 rounded-[2.5rem] p-6 md:p-8 shadow-2xl text-left border border-white flex flex-col md:flex-row gap-8 items-stretch relative overflow-hidden">
+      <!-- Decorative element -->
+      <div class="absolute -top-12 -right-12 w-48 h-48 bg-purple-500/5 rounded-full blur-2xl pointer-events-none"></div>
+      
+      <!-- Left side: Styled Image Box -->
+      <div class="w-full md:w-[40%] min-h-[240px] md:min-h-full rounded-3xl overflow-hidden relative shadow-lg">
+        <img 
+          id="premium-case-image"
+          src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=600&auto=format&fit=crop" 
+          alt="Case Study Showcase" 
+          class="absolute inset-0 w-full h-full object-cover"
+        />
+        <!-- Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-purple-900/40 via-transparent to-transparent pointer-events-none"></div>
+      </div>
+
+      <!-- Right side: Case details -->
+      <div class="w-full md:w-[60%] flex flex-col justify-between py-2 space-y-6">
+        <!-- Header: Brand Name + Link -->
+        <div class="flex items-center justify-between border-b border-zinc-100 pb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-[10px] font-bold uppercase tracking-widest bg-purple-100 text-purple-700 px-3 py-1 rounded-full border border-purple-200 font-body">Case Recomendado</span>
+          </div>
+          
+          <a 
+            id="btn-open-whatsapp"
+            href="#"
+            target="_blank"
+            class="text-xs font-bold uppercase tracking-wider text-purple-600 hover:text-purple-800 transition-colors flex items-center gap-1.5 font-body group"
+          >
+            Ver Esse Case 
+            <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Case Title Brand & Result -->
+        <div class="space-y-3">
+          <h3 id="premium-case-brand" class="font-lato font-extrabold text-2xl md:text-3xl text-zinc-900 tracking-tight">Hering</h3>
+          <p id="premium-case-result" class="text-sm md:text-base font-body font-normal text-zinc-600 leading-relaxed">
+            Recuperação automática de mais de 25% de carrinhos abandonados via WhatsApp e conversão comercial impulsionada de forma massiva.
+          </p>
+        </div>
+
+        <!-- Metric Badges/Rows -->
+        <div id="premium-case-metrics" class="space-y-2.5 pt-2">
+          <!-- Metric Row 1 -->
+          <div class="flex items-center gap-3.5 bg-zinc-50 p-3 rounded-2xl border border-zinc-100">
+            <span class="h-9 w-14 rounded-xl bg-purple-100 text-purple-700 font-extrabold text-sm flex items-center justify-center font-body shrink-0 shadow-sm" id="premium-metric-badge-1">25%</span>
+            <span class="text-xs font-semibold text-zinc-700 font-body leading-tight" id="premium-metric-label-1">De recuperação dos carrinhos abandonados</span>
+          </div>
+          <!-- Metric Row 2 -->
+          <div class="flex items-center gap-3.5 bg-zinc-50 p-3 rounded-2xl border border-zinc-100">
+            <span class="h-9 w-14 rounded-xl bg-purple-100 text-purple-700 font-extrabold text-sm flex items-center justify-center font-body shrink-0 shadow-sm" id="premium-metric-badge-2">4.2x</span>
+            <span class="text-xs font-semibold text-zinc-700 font-body leading-tight" id="premium-metric-label-2">Aumento médio na conversão de vendas</span>
+          </div>
+          <!-- Metric Row 3 -->
+          <div class="flex items-center gap-3.5 bg-zinc-50 p-3 rounded-2xl border border-zinc-100">
+            <span class="h-9 w-14 rounded-xl bg-purple-100 text-purple-700 font-extrabold text-sm flex items-center justify-center font-body shrink-0 shadow-sm" id="premium-metric-badge-3">100%</span>
+            <span class="text-xs font-semibold text-zinc-700 font-body leading-tight" id="premium-metric-label-3">Automação de FAQs de frete e prazos</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interactive WhatsApp Conversational Trigger Box (To ensure direct connection and talk-to-human action is robustly clear) -->
+    <div class="bg-[#110f17]/60 backdrop-blur-xl border border-emerald-500/20 rounded-[2rem] p-8 text-center space-y-6 shadow-2xl relative overflow-hidden">
+      <!-- Glow background -->
+      <div class="absolute -top-32 -left-32 w-80 h-80 bg-emerald-500/[0.03] rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="space-y-2">
+        <h3 class="font-lato font-bold text-lg md:text-xl text-[#FFD04D]">Pronto para transformar sua operação?</h3>
+        <p class="text-xs md:text-sm text-zinc-300 font-body max-w-2xl mx-auto leading-relaxed">
+          Nossa inteligência artificial já gerou seu diagnóstico e simulador. Clique no botão abaixo para receber seu Plano Estratégico em PDF e testar a demonstração prática da OmniChat agora mesmo!
+        </p>
+      </div>
+
+      <!-- Main WhatsApp CTA Button -->
+      <div class="max-w-md mx-auto pt-2">
+        <a 
+          id="btn-open-whatsapp-main"
           href="#"
           target="_blank"
-          variant="success"
-          class="w-full py-4 text-base font-bold uppercase tracking-[0.08em] !rounded-xl !bg-emerald-600 hover:!bg-emerald-500 flex items-center justify-center gap-2"
+          class="w-full py-4 text-sm md:text-base font-extrabold uppercase tracking-[0.08em] rounded-xl bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white shadow-xl shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all duration-300 hover:scale-[1.01] hover:shadow-emerald-500/30"
         >
           <svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24">
             <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C16.59 2.016 14.135 1 11.997 1 6.562 1 2.135 5.371 2.131 10.8c-.001 1.76.474 3.478 1.38 5.003L2.503 21.1l5.411-1.419c.11.06.222.114.333.165zM17.115 14c-.28-.14-1.655-.815-1.912-.91-.256-.092-.443-.14-.63.14-.187.28-.724.91-.887 1.095-.164.186-.328.21-.608.07-.28-.14-1.182-.435-2.251-1.39-.831-.742-1.393-1.658-1.556-1.938-.163-.28-.017-.431.122-.571.125-.125.28-.327.42-.49.14-.163.187-.28.28-.467.094-.187.047-.35-.024-.49-.07-.14-.63-1.517-.862-2.078-.227-.547-.457-.473-.63-.482-.163-.008-.35-.01-.537-.01-.187 0-.49.07-.747.35-.257.28-.981.958-.981 2.333 0 1.375.999 2.702 1.14 2.888.14.187 1.966 3.004 4.761 4.21.665.286 1.184.457 1.588.585.668.213 1.277.182 1.758.11.536-.08 1.655-.677 1.887-1.332.234-.655.234-1.215.164-1.332-.07-.116-.257-.186-.537-.326z"/>
           </svg>
-          Iniciar Conversa no WhatsApp
-        </Button>
-      </div>
-    </div>
-
-    <!-- Case Recomendado Card -->
-    <div id="success-case-card" class="hidden bg-[#110f17]/60 backdrop-blur-xl border border-emerald-500/20 rounded-[2rem] p-6 text-left space-y-4 shadow-xl">
-      <div class="flex items-center gap-2">
-        <span class="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 font-body">Case Recomendado para Você</span>
-      </div>
-      <div class="space-y-1">
-        <h4 class="font-body font-bold text-xl text-foreground" id="success-case-brand">--</h4>
-        <p class="text-sm font-bold text-emerald-400 font-body" id="success-case-result">--</p>
-      </div>
-      <p class="text-xs text-zinc-300 leading-relaxed font-body font-normal" id="success-case-justification">
-        --
-      </p>
-    </div>
-
-    <!-- Simulated Report Summary Card -->
-    <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 space-y-4 shadow-xl">
-      <h3 class="font-lato font-bold text-lg text-foreground border-b border-white/[0.06] pb-2">Resumo do Relatório</h3>
-      
-      <div class="space-y-3.5 text-sm font-lato">
-        <div class="flex justify-between">
-          <span class="text-muted font-medium">Empresa:</span>
-          <span class="font-bold text-foreground" id="sum-company">--</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-muted font-medium">Score Geral de Prontidão:</span>
-          <span class="font-black text-accent" id="sum-overall-score">0%</span>
-        </div>
-        <div class="flex justify-between">
-          <span class="text-muted font-medium">Estágio de Maturidade:</span>
-          <span class="font-bold text-foreground" id="sum-maturity-stage">--</span>
-        </div>
-        <div class="flex justify-between border-t border-white/[0.06] pt-3.5">
-          <span class="text-muted font-bold">Gargalo Crítico:</span>
-          <span class="font-extrabold text-accent" id="sum-critical-pilar">--</span>
-        </div>
+          QUERO REPLICAR O CASE NO WHATSAPP
+        </a>
       </div>
     </div>
 
     <!-- Action Buttons -->
-    <div class="text-center space-y-4">
+    <div class="text-center space-y-4 max-w-sm mx-auto pt-4">
       <Button 
         id="btn-restart-simulation"
         variant="outline"
-        class="w-full py-4 text-sm font-bold uppercase tracking-[0.08em] !rounded-xl !border-white/10 hover:!border-white/20 hover:!bg-white/5 !text-muted hover:!text-foreground font-lato"
+        class="w-full py-4 text-xs font-bold uppercase tracking-[0.08em] !rounded-xl !border-white/10 hover:!border-white/20 hover:!bg-white/5 !text-zinc-400 hover:!text-foreground font-lato"
       >
         Refazer Diagnóstico de Prontidão
       </Button>
-      <p class="text-xs text-muted/80 font-lato font-medium">Dúvidas operacionais? Converse com nosso comitê técnico de Revenue AI.</p>
+      <p class="text-[10px] text-zinc-500 font-body">Dúvidas operacionais? Converse com nosso comitê técnico de Revenue AI.</p>
     </div>
   </div>
 

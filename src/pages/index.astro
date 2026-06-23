@@ -227,6 +227,58 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
     }
   } as const;
 
+  // Premium Case Study Assets (Image + Metric Badges matching the premium tela-04-final redesign)
+  const PREMIUM_CASE_ASSETS = {
+    'Varejo & E-commerce': {
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=600&auto=format&fit=crop",
+      metrics: [
+        { badge: "25%", label: "De recuperação dos carrinhos abandonados" },
+        { badge: "4.2x", label: "Aumento médio na conversão de vendas" },
+        { badge: "100%", label: "Automação de FAQs de frete e prazos" }
+      ]
+    },
+    'Saúde & Clínicas': {
+      image: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?q=80&w=600&auto=format&fit=crop",
+      metrics: [
+        { badge: "90%", label: "De redução no tempo de resposta inicial" },
+        { badge: "24/7", label: "Atendimento e triagem automática de pacientes" },
+        { badge: "10x", label: "Mais agilidade no handoff para consultores" }
+      ]
+    },
+    'Serviços Financeiros': {
+      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=600&auto=format&fit=crop",
+      metrics: [
+        { badge: "60%", label: "De redução no tempo de atendimento humano" },
+        { badge: "2x", label: "Mais vendas consultivas fechadas" },
+        { badge: "100%", label: "Conformidade e governança de taxas e termos" }
+      ]
+    },
+    'Tecnologia & SaaS': {
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=600&auto=format&fit=crop",
+      metrics: [
+        { badge: "35%", label: "De economia no custo de aquisição (CAC)" },
+        { badge: "24/7", label: "Onboarding conversacional e trial ativo" },
+        { badge: "100%", label: "Sincronização closed-loop com o CRM" }
+      ]
+    },
+    'Logística & Distribuição': {
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?q=80&w=600&auto=format&fit=crop",
+      metrics: [
+        { badge: "R$ 5M", label: "Faturamento anual gerado via WhatsApp" },
+        { badge: "5s", label: "Para cotações complexas integradas ao ERP" },
+        { badge: "80%", label: "De segurança de automação administrativa" }
+      ]
+    },
+    'Outros': {
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop",
+      metrics: [
+        { badge: "80%", label: "Tempo livre para atendentes com IA de FAQs" },
+        { badge: "100%", label: "Atribuição fechada e rastreabilidade de ROI" },
+        { badge: "4.2x", label: "Aumento em conversões de vendas assistidas" }
+      ]
+    }
+  } as const;
+
   // DOM Elements
   const stage1 = document.getElementById('stage-1');
   const stage2 = document.getElementById('stage-2');
@@ -683,24 +735,36 @@ import FaultyTerminal from '../components/ui/FaultyTerminal.astro';
     const primaryCase = sectorConfig.primaryCase;
     state.primaryCase = primaryCase;
 
+    // Get premium assets (image and metrics)
+    const selectedSectorKey = selectedSector as keyof typeof PREMIUM_CASE_ASSETS;
+    const premiumAssets = PREMIUM_CASE_ASSETS[selectedSectorKey] || PREMIUM_CASE_ASSETS['Outros'];
+
     // Populating Stage 4 Success Info
-    const successCaseCard = document.getElementById('success-case-card');
-    const st4Brand = document.querySelector('#stage-4 #success-case-brand');
-    const st4Result = document.querySelector('#stage-4 #success-case-result');
-    const st4Justification = document.querySelector('#stage-4 #success-case-justification');
-    const btnOpenWhatsapp = document.getElementById('btn-open-whatsapp') as HTMLAnchorElement;
+    const premiumBrand = document.getElementById('premium-case-brand');
+    const premiumResult = document.getElementById('premium-case-result');
+    const premiumImage = document.getElementById('premium-case-image') as HTMLImageElement;
 
-    if (st4Brand) st4Brand.textContent = primaryCase.name;
-    if (st4Result) st4Result.textContent = primaryCase.result;
-    if (st4Justification) st4Justification.textContent = primaryCase.takeaway;
-    if (successCaseCard) successCaseCard.classList.remove('hidden');
+    if (premiumBrand) premiumBrand.textContent = primaryCase.name;
+    if (premiumResult) premiumResult.textContent = primaryCase.result;
+    if (premiumImage) premiumImage.src = premiumAssets.image;
 
-    if (btnOpenWhatsapp) {
-      btnOpenWhatsapp.innerHTML = `
+    // Populating metric rows
+    premiumAssets.metrics.forEach((m, i) => {
+      const idx = i + 1;
+      const badge = document.getElementById(`premium-metric-badge-${idx}`);
+      const label = document.getElementById(`premium-metric-label-${idx}`);
+      if (badge) badge.textContent = m.badge;
+      if (label) label.textContent = m.label;
+    });
+
+    // Update main green button text dynamically
+    const btnOpenWhatsappMain = document.getElementById('btn-open-whatsapp-main') as HTMLAnchorElement;
+    if (btnOpenWhatsappMain) {
+      btnOpenWhatsappMain.innerHTML = `
         <svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24">
           <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C16.59 2.016 14.135 1 11.997 1 6.562 1 2.135 5.371 2.131 10.8c-.001 1.76.474 3.478 1.38 5.003L2.503 21.1l5.411-1.419c.11.06.222.114.333.165zM17.115 14c-.28-.14-1.655-.815-1.912-.91-.256-.092-.443-.14-.63.14-.187.28-.724.91-.887 1.095-.164.186-.328.21-.608.07-.28-.14-1.182-.435-2.251-1.39-.831-.742-1.393-1.658-1.556-1.938-.163-.28-.017-.431.122-.571.125-.125.28-.327.42-.49.14-.163.187-.28.28-.467.094-.187.047-.35-.024-.49-.07-.14-.63-1.517-.862-2.078-.227-.547-.457-.473-.63-.482-.163-.008-.35-.01-.537-.01-.187 0-.49.07-.747.35-.257.28-.981.958-.981 2.333 0 1.375.999 2.702 1.14 2.888.14.187 1.966 3.004 4.761 4.21.665.286 1.184.457 1.588.585.668.213 1.277.182 1.758.11.536-.08 1.655-.677 1.887-1.332.234-.655.234-1.215.164-1.332-.07-.116-.257-.186-.537-.326z"/>
         </svg>
-        Quero Replicar o Case ${primaryCase.name} no WhatsApp
+        QUERO REPLICAR O CASE ${primaryCase.name.toUpperCase()} NO WHATSAPP
       `;
     }
   }
@@ -897,6 +961,11 @@ Gostaria de ver como posso aplicar o plano estratégico e estruturar a jornada d
       const btnOpenWhatsapp = document.getElementById('btn-open-whatsapp') as HTMLAnchorElement;
       if (btnOpenWhatsapp) {
         btnOpenWhatsapp.href = whatsappUrl;
+      }
+
+      const btnOpenWhatsappMain = document.getElementById('btn-open-whatsapp-main') as HTMLAnchorElement;
+      if (btnOpenWhatsappMain) {
+        btnOpenWhatsappMain.href = whatsappUrl;
       }
 
       setTimeout(() => {
