@@ -1,0 +1,284 @@
+---
+import Button from './ui/Button.astro';
+
+const questions = [
+  {
+    id: 1,
+    category: "Dimensão 1: Estratégia e Canal",
+    title: "Como a IA se posiciona hoje no seu funil conversacional?",
+    description: "Avalie se sua IA atua apenas respondendo dúvidas ou se participa ativamente da conversão.",
+    options: [
+      { label: "Apenas Reativa", detail: "Responde a dúvidas frequentes de suporte de forma passiva.", value: "A" },
+      { label: "Qualificação Pré-Venda", detail: "Qualifica leads antes de encaminhá-los para corretores/vendedores.", value: "B" },
+      { label: "Venda & Recuperação Ativa", detail: "Atua ativamente em recomendação de produtos e recuperação de carrinhos.", value: "C" },
+      { label: "Jornada Autônoma", detail: "Gerencia toda a jornada comercial conversacional ativa de ponta a ponta.", value: "D" }
+    ]
+  },
+  {
+    id: 2,
+    category: "Dimensão 1: Estratégia e Canal",
+    title: "Como são definidas as metas de negócios e receita do seu canal de WhatsApp?",
+    description: "Mede o alinhamento estratégico da inteligência artificial com os objetivos financeiros da empresa.",
+    options: [
+      { label: "Sem metas de negócios", detail: "Não possuímos metas claras vinculadas à performance de vendas no canal.", value: "A" },
+      { label: "Metas operacionais e de volume", detail: "Metas focadas em volume de mensagens, cliques ou tempo de resposta.", value: "B" },
+      { label: "Metas parciais de conversão", detail: "Metas de conversão vinculadas à geração de leads qualificados ou recuperação pontual.", value: "C" },
+      { label: "Metas explícitas de vendas e receita", detail: "Metas financeiras diretas de faturamento e ROI gerados pela IA comercial.", value: "D" }
+    ]
+  },
+  {
+    id: 3,
+    category: "Dimensão 2: Dados e Atribuição",
+    title: "Como sua empresa descobre qual anúncio ou campanha gerou cada conversa e venda no WhatsApp?",
+    description: "Mede a capacidade de rastreamento de campanhas de mídia paga (Meta Ads/Click-to-WhatsApp) até a conversão.",
+    options: [
+      { label: "Sem rastreamento ou atribuição de origem", detail: "Não conseguimos identificar qual anúncio ou criativo iniciou o contato.", value: "A" },
+      { label: "Atribuição manual", detail: "Uso informal de cupons, links específicos ou tags adicionadas manualmente.", value: "B" },
+      { label: "Integração automática básica", detail: "Rastreamento automatizado de UTMs parciais integradas ao CRM.", value: "C" },
+      { label: "Integração avançada em tempo real", detail: "Pixel, API de Conversões do Meta e Webhooks integrados em tempo real.", value: "D" }
+    ]
+  },
+  {
+    id: 4,
+    category: "Dimensão 2: Dados e Atribuição",
+    title: "Com qual nível de clareza as métricas comerciais de receita direta e assistida são visualizadas?",
+    description: "Mede a transparência e consolidação dos dados de faturamento do canal conversacional.",
+    options: [
+      { label: "Invisível ou sem consolidação", detail: "Não temos dados de faturamento ou conversão comercial consolidados.", value: "A" },
+      { label: "Relatório manual e impreciso", detail: "Estimamos o faturamento de forma manual, pontual e passível de erros.", value: "B" },
+      { label: "Dashboard de funil integrado", detail: "Temos painéis com volume de contatos e conversões, mas sem visão direta de receita.", value: "C" },
+      { label: "Painel em tempo real de receita direta e assistida", detail: "Visualização executiva imediata de ROI, receita direta da IA e receita assistida por humanos.", value: "D" }
+    ]
+  },
+  {
+    id: 5,
+    category: "Dimensão 3: Operação e Performance",
+    title: "Qual é o tempo médio de resposta no primeiro contato e nas interações ao longo da jornada?",
+    description: "Mede a agilidade de atendimento e o impacto da velocidade na taxa de conversão comercial.",
+    options: [
+      { label: "Lento ou instável (acima de 4h)", detail: "Tempo de espera longo ou dependência de fila humana sobrecarregada.", value: "A" },
+      { label: "Moderado (de 15 minutos a 1 hora)", detail: "Atendimento mediano em horário comercial, com lentidão acentuada fora dele.", value: "B" },
+      { label: "Rápido (menos de 15 minutos)", detail: "Menos de 15 minutos com triagem automatizada simples e distribuição rápida.", value: "C" },
+      { label: "Resposta imediata e instantânea via IA", detail: "IA generativa atende instantaneamente com tom natural e fluido 24/7.", value: "D" }
+    ]
+  },
+  {
+    id: 6,
+    category: "Dimensão 3: Operação e Performance",
+    title: "Como sua operação lida com perguntas frequentes (FAQs) de produtos e tratamento de objeções de vendas?",
+    description: "Mede a capacidade da inteligência artificial de ir além do FAQ básico e engajar o cliente no fechamento.",
+    options: [
+      { label: "Inexistente ou script estático com erro", detail: "Fluxos engessados que travam ou geram erros se o cliente sai do roteiro.", value: "A" },
+      { label: "FAQ básico por palavra-chave", detail: "O chatbot só responde se o cliente digitar termos específicos pré-cadastrados.", value: "B" },
+      { label: "IA generativa em tópicos limitados", detail: "A IA responde dúvidas frequentes de forma fluida, mas não sabe contornar objeções de venda.", value: "C" },
+      { label: "IA generativa treinada lidando com objeções fluidas", detail: "IA contorna objeções, compara produtos e direciona de forma natural para o fechamento.", value: "D" }
+    ]
+  },
+  {
+    id: 7,
+    category: "Dimensão 4: Governança e Segurança",
+    title: "Como são parametrizadas e controladas as regras de descontos, preços e termos comerciais aplicados pela IA?",
+    description: "Mede o nível de blindagem sistêmica contra alucinações comerciais que causem prejuízos.",
+    options: [
+      { label: "Sem regras (alto risco de alucinação)", detail: "Alto risco de alucinação, erros e promessas comerciais indevidas por falta de travas.", value: "A" },
+      { label: "Regras manuais sem travas", detail: "Instruções descritivas no prompt da IA, mas sem bloqueio ou controle técnico de sistema.", value: "B" },
+      { label: "Validação de regras parcial", detail: "A IA lê preços pré-cadastrados, mas não possui travas duras para margens e negociação.", value: "C" },
+      { label: "Travas rígidas de preço/desconto e conduta", detail: "Valores, descontos e termos comerciais são validados por regras duras em tempo real.", value: "D" }
+    ]
+  },
+  {
+    id: 8,
+    category: "Dimensão 4: Governança e Segurança",
+    title: "Como ocorre a transferência do atendimento quando o lead sai da IA e passa para o vendedor?",
+    description: "Mede a qualidade do compartilhamento de contexto para evitar fricção ou abandono do lead.",
+    options: [
+      { label: "Sem fluxo claro / atendimento às cegas", detail: "O vendedor assume uma tela vazia e o cliente precisa reexplicar seu caso do início.", value: "A" },
+      { label: "Atendente assume lendo histórico manualmente", detail: "O vendedor precisa rolar a tela e ler tudo o que foi conversado antes para poder responder.", value: "B" },
+      { label: "Triagem básica e tags de intenção", detail: "Direcionamento automático baseado em tags de intenção ou formulário básico simples.", value: "C" },
+      { label: "Handoff inteligente com prioridade e resumos de IA", detail: "IA exibe resumo contextualizado da dor do lead, score de interesse e script de fechamento.", value: "D" }
+    ]
+  },
+  {
+    id: 9,
+    category: "Dimensão 5: Ownership e Organização",
+    title: "Quem é o principal responsável (owner) pelo canal de WhatsApp e pela otimização da inteligência artificial?",
+    description: "Mede o nível de maturidade organizacional e governança corporativa sobre o canal de receita.",
+    options: [
+      { label: "Sem dono / dividido entre TI e marketing", detail: "Responsabilidade diluída, dividida entre suporte de TI e campanhas de marketing.", value: "A" },
+      { label: "Área responsável definida mas sem alinhamento comercial", detail: "CX ou Marketing gerencia o canal de forma isolada, sem foco em conversão e vendas.", value: "B" },
+      { label: "Coparticipação parcial entre áreas", detail: "Sintonia parcial entre Marketing, Vendas e CX, mas sem líder único do canal conversacional.", value: "C" },
+      { label: "Dono de canal dedicado com metas unificadas", detail: "PO dedicado lidera o canal, com metas integradas de Marketing, Vendas e CX.", value: "D" }
+    ]
+  },
+  {
+    id: 10,
+    category: "Dimensão 5: Ownership e Organização",
+    title: "Com qual frequência as interações da inteligência artificial e as taxas de conversão são analisadas e otimizadas?",
+    description: "Mede a cadência de otimização analítica baseada em dados reais de conversão.",
+    options: [
+      { label: "Raramente / apenas bugs críticos", detail: "Apenas quando ocorrem problemas graves ou indisponibilidade técnica do bot.", value: "A" },
+      { label: "Revisão pontual e reativa baseada em feedbacks", detail: "Ajustes esporádicos gerados de forma reativa a reclamações de clientes ou equipe.", value: "B" },
+      { label: "Otimizações periódicas", detail: "Análise mensal com foco no volume de mensagens enviadas e abertas.", value: "C" },
+      { label: "Cadência semanal/mensal de otimização orientada a dados", detail: "Otimizações ágeis e constantes, testes A/B e refinamento de dados de conversão.", value: "D" }
+    ]
+  }
+];
+
+import logoOmnichat from '../image/logo-omnichat.svg';
+---
+<!-- ==================== TELA 2: DIAGNÓSTICO MULTIETAPAS (Figma 26:233 Full-Screen Layout) ==================== -->
+<section
+  id="stage-2"
+  class="hidden fixed inset-0 z-40 overflow-y-auto bg-background text-foreground"
+>
+  <!-- Full Layout wrapper matching left align + margins from Figma -->
+  <div class="mx-auto flex min-h-full max-w-[1240px] flex-col px-6 py-7 md:px-14 md:py-9 justify-between">
+    
+    <!-- Top bar: Logo + Tagline -->
+    <header class="flex items-center justify-between shrink-0">
+      <a href="/" class="flex items-center gap-2.5">
+        <img
+          src={logoOmnichat.src}
+          alt="OmniChat Logo"
+          class="h-9 md:h-11 w-auto"
+          loading="eager"
+        />
+      </a>
+      <p class="hidden text-sm font-medium tracking-wide text-muted sm:block">
+        Mapeamento de Maturidade <span class="mx-1 text-accent/70">&bull;</span> Revenue AI
+      </p>
+    </header>
+
+    <!-- Full-screen progress line section -->
+    <div class="mt-8 shrink-0">
+      <div class="relative w-full h-[2px] bg-white/[0.08]">
+        <!-- Gold indicator dot with a pulse blur back glow -->
+        <div 
+          id="quiz-progress-dot" 
+          class="absolute -top-[5px] h-3 w-3 rounded-full bg-accent transition-all duration-300"
+          style="left: 10%;"
+        >
+          <div class="absolute inset-0 rounded-full bg-accent/60 blur-[4px] animate-ping scale-150"></div>
+        </div>
+        <!-- Filled part of progress line -->
+        <div 
+          id="quiz-progress-fill" 
+          class="absolute left-0 top-0 h-full bg-accent transition-all duration-300"
+          style="width: 10%;"
+        ></div>
+      </div>
+      
+      <!-- Progress details placed exactly below line -->
+      <div class="flex justify-between items-start mt-3 text-xs font-lato">
+        <span class="font-extrabold text-accent text-sm tracking-wider" id="quiz-step-indicator">01/10</span>
+        <span class="font-bold text-muted/70 text-right max-w-xs md:max-w-xl truncate uppercase tracking-[0.05em]" id="quiz-step-title">
+          Como a IA se posiciona hoje no seu funil conversacional?
+        </span>
+      </div>
+    </div>
+
+    <!-- Main Content: Category badge + Left Huge gold question + Grid -->
+    <div class="flex-1 flex flex-col justify-center py-8">
+      
+      {questions.map((q) => (
+        <div class:list={["quiz-step space-y-6 relative z-10", q.id > 1 && "hidden"]} data-step={q.id} data-title={q.title}>
+          
+          <!-- Category label as outline thin badge -->
+          <div class="inline-flex items-center px-4 py-2 rounded-full border border-white/[0.12] text-muted text-xs font-bold uppercase tracking-wider font-lato">
+            {q.category}
+          </div>
+
+          <!-- Hero Question heading: Gold, Lato, thin weight 275, leading 1.05 -->
+          <h2 
+            class="font-lato leading-[1.05] tracking-[-0.015em] text-[#FFD04D]"
+            style="font-size: clamp(1.8rem, 4.4vw, 3.6rem); font-weight: 275;"
+          >
+            {q.title}
+          </h2>
+          
+          <!-- Optional description -->
+          <p class="text-muted text-sm md:text-base font-lato font-medium max-w-3xl -mt-2">
+            {q.description}
+          </p>
+
+          <!-- 2x2 Responsive Grid for options -->
+          <div class="grid md:grid-cols-2 gap-4.5 pt-4">
+            {q.options.map((opt, idx) => {
+              // Format index as 01, 02, 03, 04
+              const idxStr = String(idx + 1).padStart(2, '0');
+              return (
+                <button 
+                  class="quiz-opt-btn group flex items-stretch min-h-[92px] rounded-xl border border-white/[0.08] bg-[#0d0b13]/60 hover:border-purple-500/35 hover:bg-[#14121d]/80 text-left transition-all duration-300 cursor-pointer overflow-hidden relative" 
+                  data-val={opt.value} 
+                  data-step={q.id}
+                >
+                  <!-- Vertical left accent bar - Light Violet Stripe matching Figma -->
+                  <div class="w-[5px] bg-[#C0A0FF] shrink-0 opacity-40 group-hover:opacity-100 transition-opacity"></div>
+                  
+                  <!-- Option contents -->
+                  <div class="flex items-center gap-5 p-4.5 flex-1">
+                    <!-- Huge Number on Left -->
+                    <span class="font-lato font-extrabold text-2xl md:text-3xl text-white/90 group-hover:text-[#C0A0FF] transition-colors shrink-0">
+                      {idxStr}
+                    </span>
+                    
+                    <!-- Text blocks -->
+                    <div class="flex-1">
+                      <h4 class="font-lato font-extrabold text-base text-foreground group-hover:text-purple-100 transition-colors">
+                        {opt.label}
+                      </h4>
+                      <p class="text-xs text-muted/75 font-lato font-medium mt-1 leading-relaxed group-hover:text-muted transition-colors">
+                        {opt.detail}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+          
+        </div>
+      ))}
+      
+    </div>
+
+    <!-- Bottom Actions: VOLTAR + AVANÇAR / VISUALIZAR RESULTADO -->
+    <div class="pt-4 shrink-0 flex items-center justify-between">
+      <Button 
+        id="btn-quiz-prev" 
+        variant="outline"
+        class="group px-10 py-3.5 !rounded-xl !border-accent/60 !text-accent hover:!bg-accent/10 font-lato font-bold text-xs uppercase tracking-[0.08em]"
+      >
+        Voltar
+      </Button>
+      
+      <Button 
+        id="btn-quiz-next" 
+        variant="outline"
+        class="group px-10 py-3.5 !rounded-xl !border-accent/60 !text-accent hover:!bg-accent/10 font-lato font-bold text-xs uppercase tracking-[0.08em] flex items-center gap-2 transition-all duration-300"
+      >
+        Avançar
+        <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+        </svg>
+      </Button>
+    </div>
+
+  </div>
+</section>
+
+<!-- Custom styles to support selected states -->
+<style is:global>
+  /* Selection styling: active card states matching brand accent colors */
+  .quiz-opt-btn.border-accent {
+    border-color: #f2d14e !important;
+    background-color: rgba(242, 209, 78, 0.04) !important;
+  }
+  .quiz-opt-btn.border-accent > div:first-child {
+    background-color: #f2d14e !important;
+    opacity: 1 !important;
+  }
+  .quiz-opt-btn.border-accent span {
+    color: #f2d14e !important;
+  }
+</style>

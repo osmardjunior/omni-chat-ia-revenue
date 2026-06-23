@@ -1,0 +1,16 @@
+---
+interface Props {
+  id: string;
+  class?: string;
+  height?: 'sm' | 'md';
+  value?: string;
+}
+
+const { id, class: className = '', height = 'sm', value = '0%' } = Astro.props;
+
+const heightStyles = height === 'sm' ? 'h-1.5' : 'h-2';
+---
+
+<div class={`${heightStyles} w-full bg-foreground/10 rounded-full overflow-hidden ${className}`}>
+  <div class="h-full bg-accent transition-all duration-500 ease-out" id={id} style={{ width: value }}></div>
+</div>

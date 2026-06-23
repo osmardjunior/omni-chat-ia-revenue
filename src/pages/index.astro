@@ -1,0 +1,881 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import StageLanding from '../components/StageLanding.astro';
+import StageQuiz from '../components/StageQuiz.astro';
+import StageResults from '../components/StageResults.astro';
+import StageLead from '../components/StageLead.astro';
+---
+
+<Layout title="Diagnóstico de Maturidade de IA Comercial • Revenue AI | Ship Studio">
+  <main class="min-h-screen bg-background text-foreground transition-colors duration-300">
+    <Header />
+
+    <div class="mx-auto max-w-4xl px-4 py-12 md:py-20">
+      <StageQuiz />
+      <StageResults />
+      <StageLead />
+    </div>
+  </main>
+
+  <!-- Full-screen landing overlay (Figma design + WebGL background) -->
+  <StageLanding />
+</Layout>
+
+<script>
+  // State Management
+  const state = {
+    stage: 1, // 1: Landing, 2: Quiz, 3: Results, 4: Lead/Success
+    currentStep: 1,
+    answers: Array(10).fill(''),
+    scores: {
+      revenue: 0,
+      data: 0,
+      autonomy: 0,
+      human: 0,
+      governance: 0,
+      overall: 0,
+      maturityStage: '',
+      lowestDimension: ''
+    },
+    primaryCase: {
+      name: '',
+      segment: '',
+      problem: '',
+      approach: '',
+      result: '',
+      takeaway: ''
+    }
+  };
+
+  // Sector Data Library
+  const SECTOR_DATA = {
+    'Varejo & E-commerce': {
+      marketFacts: "No varejo digital brasileiro, mais de 78% dos carrinhos são abandonados. Marcas líderes de e-commerce que adotam agentes comerciais de IA com atribuição fechada alcançam uma conversão de vendas até 4.2x maior que canais tradicionais de e-mail e SMS.",
+      bottlenecks: [
+        "Altíssimo abandono de carrinhos no checkout sem nenhuma ação ativa ou oportuna de recuperação.",
+        "Atendimento reativo sem inteligência de recomendação personalizada baseada no perfil e histórico do cliente.",
+        "Falta de atribuição das vendas de WhatsApp aos anúncios de Meta Ads (Meta Click-to-WhatsApp), gerando desperdício em mídia.",
+        "Equipe de suporte sobrecarregada com dúvidas repetitivas sobre frete, prazos e política de trocas."
+      ],
+      efficiencies: [
+        { label: "Atendimento Autônomo 24/7", value: "100% de automação de FAQs sobre frete, prazos e trocas com respostas em segundos." },
+        { label: "Recuperação Ativa de Carrinhos", value: "Recuperação de até 25% de carrinhos abandonados de forma proativa." },
+        { label: "Atribuição closed-loop", value: "Otimização em tempo real das campanhas de Meta Ads via API de Conversões." },
+        { label: "Vendas Assistidas", value: "IA qualifica o cliente e fornece respostas fluidas reduzindo fricção no funil." }
+      ],
+      primaryCase: {
+        name: "Hering",
+        segment: "Varejo & E-commerce",
+        problem: "Alto volume de abandono de checkout e lentidão nas respostas de dúvidas de clientes, com o time de vendas sobrecarregado.",
+        approach: "Implementação de IA comercial integrada com o e-commerce para recuperação ativa de carrinhos abandonados em tempo real e atendimento automático 24/7 de dúvidas sobre frete e produtos.",
+        result: "Recuperação automática de mais de 25% de carrinhos abandonados via WhatsApp e conversão comercial impulsionada de forma massiva.",
+        takeaway: "Recuperação ativa de carrinhos abandonados é o maior ganho de curto prazo ('low-hanging fruit') em e-commerce conversacional."
+      }
+    },
+    'Saúde & Clínicas': {
+      marketFacts: "O setor de saúde enfrenta uma perda média de 40% de leads devido à demora de atendimento inicial. O tempo ideal de resposta para agendamentos particulares ou consultas médicas é inferior a 5 minutos para evitar o abandono.",
+      bottlenecks: [
+        "Demora crônica no atendimento de primeiro contato, resultando no agendamento com concorrentes.",
+        "Inexistência de triagem automatizada com IA para separar dúvidas clínicas de solicitações comerciais de agendamento.",
+        "Absenteísmo elevado por falta de confirmações ativas e personalizadas via WhatsApp.",
+        "Vendedores e secretárias focados em preencher cadastros repetitivos em vez de fazer contato ativo."
+      ],
+      efficiencies: [
+        { label: "Velocidade Extrema", value: "Redução do tempo de resposta no WhatsApp de horas para apenas segundos (24/7)." },
+        { label: "Triagem Inteligente", value: "IA qualifica a queixa principal e encaminha direto para a especialidade correta." },
+        { label: "Zero Cancelamento", value: "Disparo e confirmação automática de consultas integrados diretamente à agenda." },
+        { label: "Qualificação Imediata", value: "Captura de dados cadastrais e convênio antes do direcionamento humano." }
+      ],
+      primaryCase: {
+        name: "Liz Lingerie",
+        segment: "Saúde & Clínicas",
+        problem: "Lentidão crítica nas interações iniciais e sobrecarga de dúvidas repetitivas, derrubando a satisfação do cliente (CSAT) e perdendo agendamentos particulares de alto valor.",
+        approach: "Fusão de canais com agentes inteligentes OmniChat para responder instantaneamente a FAQs comuns e realizar a triagem rápida dos pacientes antes do handoff consultivo.",
+        result: "Tempo de resposta de primeiro contato reduzido em 90% e melhoria expressiva nas taxas de satisfação (CSAT) e conversão de agendamentos.",
+        takeaway: "Velocidade de resposta é a métrica número um de retenção e agendamento comercial no setor de saúde."
+      }
+    },
+    'Serviços Financeiros': {
+      marketFacts: "No mercado financeiro e de crédito, a segurança jurídica e a velocidade são fundamentais. O uso de IA generativa com guardrails robustos permite reduzir o tempo de análise cadastral e qualificação de leads de 3 dias para menos de 5 minutos.",
+      bottlenecks: [
+        "Custosa qualificação manual de leads de crédito ou investimentos que consome a maior parte do tempo dos consultores.",
+        "Falta de governança sistêmica com risco de simulações errôneas de taxas ou propostas fora das políticas comerciais.",
+        "Handoff ineficiente e sem contexto de dados históricos para o consultor humano de fechamento.",
+        "Alto volume de leads frios desqualificados congestionando a equipe comercial de alta performance."
+      ],
+      efficiencies: [
+        { label: "Qualificação Instantânea", value: "Mapeamento completo de renda, perfil de risco e intenção em menos de 2 minutos." },
+        { label: "Governança e Blindagem", value: "Travas sistêmicas duras impedem alucinações de taxas de juros ou termos comerciais." },
+        { label: "Handoff Consultivo", value: "Transbordo imediato para o consultor humano com um resumo de perfil e roteiro sugerido." },
+        { label: "Ativação de Base", value: "Reengajamento automatizado de leads antigos de forma personalizada e compliance total." }
+      ],
+      primaryCase: {
+        name: "Grupo Gavinho",
+        segment: "Serviços Financeiros",
+        problem: "Consultores de vendas de seguros e consórcios perdiam 60% do tempo qualificando leads frios ou sem perfil financeiro, limitando as vendas.",
+        approach: "Implementação de IA conversacional para triagem e qualificação inteligente automática do perfil dos leads, passando apenas os qualificados com histórico compilado.",
+        result: "Qualificação inteligente de leads com IA, reduzindo o tempo de atendimento humano em 60% e dobrando as vendas consultivas.",
+        takeaway: "Liberar o vendedor humano para focar apenas em negociações consultivas duplica as taxas de conversão."
+      }
+    },
+    'Tecnologia & SaaS': {
+      marketFacts: "Empresas de SaaS e tecnologia que utilizam IA para ativação e conversão ativa de leads reduzem o Custo de Aquisição de Clientes (CAC) em até 35% e elevam o valor de tempo de vida do cliente (LTV) através de onboarding conversacional interativo.",
+      bottlenecks: [
+        "Demora na triagem de leads inbound gerados pelo marketing antes do envio para o time de pré-vendas (SDR).",
+        "Falta de escalabilidade comercial para atender picos de campanhas promocionais ou lançamentos de produto.",
+        "Baixo aproveitamento de dados de navegação e comportamento de trial para disparar abordagens de vendas via WhatsApp.",
+        "Ausência de fluxos automáticos de trial-to-paid que engajem o usuário de forma ativa e interativa."
+      ],
+      efficiencies: [
+        { label: "CAC Reduzido", value: "Automação da qualificação inicial de leads de marketing, encurtando o ciclo de vendas." },
+        { label: "Ativação em Escala", value: "Acompanhamento conversacional do trial guiando o usuário pelas funções principais do app." },
+        { label: "Nutrição Ativa", value: "Alertas inteligentes e ofertas contextualizadas baseadas no uso ou inatividade do software." },
+        { label: "Integração Closed-loop", value: "Sincronização instantânea com CRM (HubSpot/Salesforce) mantendo pipelines atualizados." }
+      ],
+      primaryCase: {
+        name: "FARM",
+        segment: "Tecnologia & SaaS",
+        problem: "Dificuldade de escala operacional no atendimento comercial durante picos sazonais de campanhas digitais de alto orçamento.",
+        approach: "Orquestração de agentes de recomendação hiper-personalizados baseados em IA que compreendem interesses individuais e ofertam soluções em escala.",
+        result: "Escala comercial massiva e recomendação personalizada eficiente em picos de demanda sem inflar custos humanos.",
+        takeaway: "Automação contextual baseada em IA permite aumentar o faturamento sem inflar o custo operacional."
+      }
+    },
+    'Logística & Distribuição': {
+      marketFacts: "Na logística e distribuição, a prontidão de estoque e a agilidade de cotação são diferenciais competitivos brutais. Distribuidores com processos comerciais baseados em canais conversacionais integrados ao ERP reduzem o tempo de cotação de 4 hours para segundos.",
+      bottlenecks: [
+        "Processo de cotação manual demorado de preços, estoques e fretes, gerando cancelamentos e atritos.",
+        "Vendedores dedicados a responder tarefas puramente burocráticas (como segunda via de boleto ou rastreio) em vez de focar na venda ativa.",
+        "Falta de cadência automática de recompra baseada no ciclo de consumo dos clientes B2B cadastrados.",
+        "Ineficiência no rastreamento de cargas resultando em dezenas de ligações diárias de suporte reativo."
+      ],
+      efficiencies: [
+        { label: "Cotações Instantâneas", value: "IA consulta estoque e calcula fretes/preços em tempo real direto com o ERP." },
+        { label: "Venda Ativa Automatizada", value: "Campanhas automáticas de recompra baseadas na cadência de consumo anterior do cliente." },
+        { label: "Suporte Desafogado", value: "Automação completa do rastreamento de frete e segunda via de boletos via IA." },
+        { label: "Pipeline Visível", value: "Registro automático de todas as cotações abertas no CRM comercial." }
+      ],
+      primaryCase: {
+        name: "Norte Refrigeração",
+        segment: "Logística & Distribuição",
+        problem: "Falta de proatividade comercial e vendedores focados em atividades administrativas lentas de cotação e dúvidas de frete.",
+        approach: "Integração do WhatsApp com ERP de estoque e IA Generativa para orquestrar cotações de peças complexas de forma autônoma e conduzir campanhas de venda ativa de recompra.",
+        result: "WhatsApp estruturado como canal de vendas ativo gerando mais de R$ 5 Milhões em faturamento anual.",
+        takeaway: "O WhatsApp não é apenas um canal de suporte; é uma infraestrutura ativa de vendas e receita recorrente."
+      }
+    },
+    'Outros': {
+      marketFacts: "Canais conversacionais inteligentes representam o canal de maior crescimento de receita no mercado B2B e B2C. A estruturação de métricas de retorno (ROI) e governança comercial são os pilares para garantir a sustentabilidade financeira da IA comercial.",
+      bottlenecks: [
+        "Operação comercial de WhatsApp operando de forma amadora, sem métricas claras de vendas diretas ou assistidas.",
+        "Falta de travas duras e governança, elevando o risco de erros operacionais e alucinação comercial de preços ou termos.",
+        "Ausência de processos de melhoria contínua semanais para auditar o tom de voz e taxas de conversão.",
+        "Falta de sintonia entre as estratégias de marketing digital e o time de atendimento de vendas de ponta."
+      ],
+      efficiencies: [
+        { label: "Atribuição de Receita", value: "Mapeamento claro do ROI ligando as campanhas online diretamente ao fechamento de vendas." },
+        { label: "Governança Blindada", value: "Garantia de conformidade com tom de voz e conformidade LGPD blindando a empresa de passivos." },
+        { label: "Automação de FAQs", value: "Liberação de até 80% do tempo dos atendentes respondendo dúvidas repetitivas." },
+        { label: "Otimização Contínua", value: "Inteligência analítica identificando melhorias constantes de script conversacional." }
+      ],
+      primaryCase: {
+        name: "Biscoitê",
+        segment: "Alimentício & Varejo",
+        problem: "Ausência de mensuração fidedigna de quanto as interações do WhatsApp contribuíam no faturamento da empresa, dificultando novos investimentos.",
+        approach: "Estruturação de tags, integração com CRM e implementação de dashboards de atribuição fechada para rastrear todas as vendas diretas e assistidas originadas por IA.",
+        result: "Retorno financeiro comprovado e mapeado com clareza com dashboard de ROI comercial de canais conversacionais.",
+        takeaway: "O que não é medido não pode ser otimizado. Rastreabilidade é o primeiro passo para escalar receita."
+      }
+    }
+  } as const;
+
+  // DOM Elements
+  const stage1 = document.getElementById('stage-1');
+  const stage2 = document.getElementById('stage-2');
+  const stage3 = document.getElementById('stage-3');
+  const stage4 = document.getElementById('stage-4');
+
+  const btnStartSimulation = document.getElementById('btn-start-simulation');
+  const btnQuizPrev = document.getElementById('btn-quiz-prev');
+  const btnQuizNext = document.getElementById('btn-quiz-next');
+  const btnUnlockReport = document.getElementById('btn-unlock-report');
+  const btnBackToResults = document.getElementById('btn-back-to-results');
+  const btnRestartSimulation = document.getElementById('btn-restart-simulation');
+
+  const quizStepIndicator = document.getElementById('quiz-step-indicator');
+  const quizStepTitle = document.getElementById('quiz-step-title');
+  const quizProgressBar = document.getElementById('quiz-progress-bar');
+  const quizSteps = document.querySelectorAll('.quiz-step');
+
+  const leadCaptureForm = document.getElementById('lead-capture-form') as HTMLFormElement;
+  const leadFormContainer = document.getElementById('lead-form-container');
+  const leadSuccessContainer = document.getElementById('lead-success-container');
+
+  // Switch Stages
+  function setStage(stageNum) {
+    state.stage = stageNum;
+    
+    stage1?.classList.add('hidden');
+    stage2?.classList.add('hidden');
+    stage3?.classList.add('hidden');
+    stage4?.classList.add('hidden');
+
+    if (stageNum === 1) {
+      stage1?.classList.remove('hidden');
+    } else if (stageNum === 2) {
+      stage2?.classList.remove('hidden');
+      showStep(state.currentStep);
+    } else if (stageNum === 3) {
+      stage3?.classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      requestAnimationFrame(() => {
+        calculateResults();
+      });
+    } else if (stageNum === 4) {
+      stage4?.classList.remove('hidden');
+      leadFormContainer?.classList.remove('hidden');
+      leadSuccessContainer?.classList.add('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
+
+  // Show Quiz Step
+  function showStep(stepNum) {
+    state.currentStep = stepNum;
+    
+    if (quizStepIndicator) {
+      const stepStr = stepNum < 10 ? `0${stepNum}` : `${stepNum}`;
+      quizStepIndicator.textContent = `${stepStr}/10`;
+    }
+
+    const activeStepEl = document.querySelector(`.quiz-step[data-step="${stepNum}"]`);
+    const stepTitle = activeStepEl?.getAttribute('data-title') || '';
+    if (quizStepTitle) quizStepTitle.textContent = stepTitle;
+
+    const pct = (stepNum / 10) * 100;
+    const progressBar = document.getElementById('quiz-progress-bar');
+    if (progressBar) {
+      progressBar.style.width = `${pct}%`;
+    }
+    
+    // Update Slider Dot Position
+    const progressDot = document.getElementById('quiz-progress-dot');
+    if (progressDot) {
+      progressDot.style.left = `${pct}%`;
+    }
+    
+    const progressFill = document.getElementById('quiz-progress-fill');
+    if (progressFill) {
+      progressFill.style.width = `${pct}%`;
+    }
+
+    quizSteps.forEach(step => {
+      const s = parseInt(step.getAttribute('data-step') || '0', 10);
+      if (s === stepNum) {
+        step.classList.remove('hidden');
+      } else {
+        step.classList.add('hidden');
+      }
+    });
+
+    if (btnQuizPrev) {
+      btnQuizPrev.classList.remove('hidden');
+      if (stepNum === 1) {
+        btnQuizPrev.textContent = 'Voltar ao Início';
+      } else {
+        btnQuizPrev.textContent = 'Voltar';
+      }
+    }
+
+    if (btnQuizNext) {
+      if (stepNum === 10) {
+        btnQuizNext.innerHTML = `Visualizar Resultado <svg class="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 5l7 7-7 7" /></svg>`;
+        btnQuizNext.className = "group px-10 py-3.5 !rounded-xl !bg-accent !text-background !border-accent shadow-lg shadow-accent/20 font-lato font-extrabold text-xs uppercase tracking-[0.08em] flex items-center gap-2 transition-all duration-300 hover:scale-[1.01]";
+      } else {
+        btnQuizNext.className = "hidden";
+      }
+    }
+
+    highlightSelectedOptions(stepNum);
+  }
+
+  // Highlight selected option buttons
+  function highlightSelectedOptions(stepNum) {
+    const stepEl = document.querySelector(`.quiz-step[data-step="${stepNum}"]`);
+    if (!stepEl) return;
+
+    const currentVal = state.answers[stepNum - 1] || '';
+
+    const optBtns = stepEl.querySelectorAll('.quiz-opt-btn');
+    optBtns.forEach(btn => {
+      const val = btn.getAttribute('data-val');
+      if (val === currentVal) {
+        btn.classList.add('border-accent', 'bg-accent/5');
+        btn.classList.remove('border-foreground/10');
+      } else {
+        btn.classList.remove('border-accent', 'bg-accent/5');
+        btn.classList.add('border-foreground/10');
+      }
+    });
+  }
+
+  // Handle Option Selection
+  function selectOption(stepNum, val) {
+    state.answers[stepNum - 1] = val;
+
+    highlightSelectedOptions(stepNum);
+
+    if (stepNum < 10) {
+      setTimeout(() => {
+        showStep(stepNum + 1);
+      }, 200);
+    }
+  }
+
+  // Generate 90-Day Action Plan HTML based on gap
+  function getActionPlanHTML(lowestKey: string) {
+    if (lowestKey === 'revenue') {
+      return `
+        <div class="grid sm:grid-cols-3 gap-4 font-normal">
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">1</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 1 a 30: Alinhamento Estratégico</span>
+            <p class="text-xs text-muted leading-relaxed">Definir metas explícitas de vendas e receita vinculadas à IA comercial. Desenhar a jornada comercial de prospecção e os fluxos conversacionais ativos.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">2</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 31 a 60: Implementação de Recuperação</span>
+            <p class="text-xs text-muted leading-relaxed">Configurar e lançar réguas automáticas de recuperação de carrinhos abandonados, boletos vencidos ou leads inativos diretamente no WhatsApp.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">3</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 61 a 90: Escala de Vendas Ativas</span>
+            <p class="text-xs text-muted leading-relaxed">Orquestrar abordagens ativas outbound personalizadas baseadas no comportamento de compra e histórico, maximizando o LTV.</p>
+          </div>
+        </div>
+      `;
+    } else if (lowestKey === 'data') {
+      return `
+        <div class="grid sm:grid-cols-3 gap-4 font-normal">
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">1</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 1 a 30: Padronização de UTMs</span>
+            <p class="text-xs text-muted leading-relaxed">Mapear os pontos de contato e configurar parâmetros UTM padrão em todos os anúncios de Meta Click-to-WhatsApp.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">2</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 31 a 60: Integrações Avançadas</span>
+            <p class="text-xs text-muted leading-relaxed">Integrar a API de Conversões do Meta e webhooks do CRM de vendas para registrar o faturamento closed-loop de forma automatizada.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">3</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 61 a 90: Dashboard de ROI</span>
+            <p class="text-xs text-muted leading-relaxed">Consolidar dashboards executivos integrados ligando os investimentos em anúncios à receita comercial gerada pelo canal.</p>
+          </div>
+        </div>
+      `;
+    } else if (lowestKey === 'autonomy') {
+      return `
+        <div class="grid sm:grid-cols-3 gap-4 font-normal">
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">1</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 1 a 30: Migração para GenAI</span>
+            <p class="text-xs text-muted leading-relaxed">Substituir os fluxos de árvore de decisão e botões engessados por agentes conversacionais baseados em IA Generativa (LLMs).</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">2</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 31 a 60: Enriquecimento de Base</span>
+            <p class="text-xs text-muted leading-relaxed">Criar e otimizar a base de conhecimento (FAQs de produtos, manuais e políticas) para a IA responder de maneira fluida.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">3</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 61 a 90: Escuta de Objeções</span>
+            <p class="text-xs text-muted leading-relaxed">Refinar as diretrizes de prompt para lidar com objeções complexas de preços, prazos e comparação com concorrentes.</p>
+          </div>
+        </div>
+      `;
+    } else if (lowestKey === 'human') {
+      return `
+        <div class="grid sm:grid-cols-3 gap-4 font-normal">
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">1</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 1 a 30: Parametrização Comercial</span>
+            <p class="text-xs text-muted leading-relaxed">Mapear limites e travas duras para que a IA nunca informe preços defasados, descontos proibidos ou condições financeiras inválidas.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">2</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 31 a 60: Handoff Inteligente</span>
+            <p class="text-xs text-muted leading-relaxed">Implementar passagem de bastão inteligente da IA para o vendedor, exibindo um resumo contextual do lead e script recomendado.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">3</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 61 a 90: Auditorias de Tom</span>
+            <p class="text-xs text-muted leading-relaxed">Estruturar rotinas de curadoria humana semanal para analisar logs de conversas e blindar o canal contra alucinações.</p>
+          </div>
+        </div>
+      `;
+    } else { // governance
+      return `
+        <div class="grid sm:grid-cols-3 gap-4 font-normal">
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">1</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 1 a 30: Nomeação de Líder (PO)</span>
+            <p class="text-xs text-muted leading-relaxed">Definir um Product Owner (PO) ou Líder dedicado para o canal conversacional comercial, unificando as metas de Marketing e Vendas.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">2</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 31 a 60: Rituais de Curadoria</span>
+            <p class="text-xs text-muted leading-relaxed">Instituir comitês técnicos e de negócios semanais para auditar diálogos da IA e calibrar o conhecimento com as dores reais do cliente.</p>
+          </div>
+          <div class="bg-foreground/[0.01] border border-foreground/5 p-5 rounded-2xl relative">
+            <div class="absolute -top-3 -left-3 h-7 w-7 rounded-full bg-accent text-white flex items-center justify-center font-display font-extrabold text-xs">3</div>
+            <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-2">Dias 61 a 90: Otimização Sistemática</span>
+            <p class="text-xs text-muted leading-relaxed">Consolidar rotinas de testes A/B periódicos de scripts e curadorias de funil para acelerar a taxa de conversão final.</p>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  // Calculate Scores and Results
+  function calculateResults() {
+    const optionScores: Record<string, number> = {
+      'A': 25,
+      'B': 55,
+      'C': 85,
+      'D': 100
+    };
+
+    const answerScores = state.answers.map(ans => optionScores[ans] || 0);
+
+    const dim1Score = Math.round((answerScores[0] + answerScores[1]) / 2); // Estratégia e Canal
+    const dim2Score = Math.round((answerScores[2] + answerScores[3]) / 2); // Dados e Atribuição
+    const dim3Score = Math.round((answerScores[4] + answerScores[5]) / 2); // Operação e Performance
+    const dim4Score = Math.round((answerScores[6] + answerScores[7]) / 2); // Governança e Segurança
+    const dim5Score = Math.round((answerScores[8] + answerScores[9]) / 2); // Ownership e Organização
+
+    state.scores.revenue = dim1Score;
+    state.scores.data = dim2Score;
+    state.scores.autonomy = dim3Score;
+    state.scores.human = dim4Score;
+    state.scores.governance = dim5Score;
+
+    // Compute Overall Score using the exact weights:
+    // Estratégia: 20%, Dados: 25%, Operação: 20%, Governança: 20%, Ownership: 15%
+    const overallScore = Math.round(
+      dim1Score * 0.20 + 
+      dim2Score * 0.25 + 
+      dim3Score * 0.20 + 
+      dim4Score * 0.20 + 
+      dim5Score * 0.15
+    );
+    state.scores.overall = overallScore;
+
+    // Determine Maturity Stage and description based on 4 bands
+    let maturityStageText = '';
+    let maturityDescriptionText = '';
+    if (overallScore <= 25) {
+      maturityStageText = "Estágio 1: Operação Experimental";
+      maturityDescriptionText = "Sua empresa realiza ações pontuais e desestruturadas com IA. O canal funciona de maneira reativa, sem metas claras de faturamento ou atribuição de mídia, gerando riscos de segurança e desperdício de potencial comercial.";
+    } else if (overallScore <= 50) {
+      maturityStageText = "Estágio 2: Operação Comercial Operacional";
+      maturityDescriptionText = "Sua operação possui automações básicas e atende clientes no WhatsApp, mas ainda foca apenas em suporte ou FAQ simples. Falta rastreabilidade de anúncios, inteligência conversacional activa e integração com CRM.";
+    } else if (overallScore <= 75) {
+      maturityStageText = "Estágio 3: Canal em Estruturação";
+      maturityDescriptionText = "Você já possui fluxos e integrações básicas direcionadas à qualificação ou prospecção de leads. No entanto, ainda enfrenta gargalos em atribuição de Meta Ads de ponta a ponta e governança comercial para transações seguras.";
+    } else {
+      maturityStageText = "Estágio 4: Canal de Receita Maduro";
+      maturityDescriptionText = "Parabéns! Sua empresa opera de forma extremamente estratégica. A IA atua ativamente gerando vendas, integrando-se em tempo real com CRM, com atribuição fechada e governança sólida com guardrails de conduta.";
+    }
+    state.scores.maturityStage = maturityStageText;
+
+    // Find lowest and second lowest score
+    const dimensions = [
+      { name: 'Estratégia e Canal', score: dim1Score, key: 'revenue', id: 1 },
+      { name: 'Dados e Atribuição', score: dim2Score, key: 'data', id: 2 },
+      { name: 'Operação e Performance', score: dim3Score, key: 'autonomy', id: 3 },
+      { name: 'Governança e Segurança', score: dim4Score, key: 'human', id: 4 },
+      { name: 'Ownership e Organização', score: dim5Score, key: 'governance', id: 5 }
+    ];
+
+    // Sort ascending
+    dimensions.sort((a, b) => a.score - b.score);
+    const lowest = dimensions[0];
+    const secondLowest = dimensions[1];
+    state.scores.lowestDimension = lowest.name;
+
+    // Toggle Premium Risk Alert Box
+    // Autonomy readiness high (Dim3 >= 70) but Governance readiness low (Dim4 < 60)
+    const riskAlertBox = document.getElementById('res-risk-alert-box');
+    if (riskAlertBox) {
+      if (dim3Score >= 70 && dim4Score < 60) {
+        riskAlertBox.classList.remove('hidden');
+      } else {
+        riskAlertBox.classList.add('hidden');
+      }
+    }
+
+    // Update DOM Elements in Stage 3
+    const resOverallScore = document.getElementById('res-overall-score');
+    if (resOverallScore) resOverallScore.textContent = `${overallScore}%`;
+
+    const gaugeCircle = document.getElementById('res-gauge-circle');
+    if (gaugeCircle) {
+      const offset = 263.8 * (1 - overallScore / 100);
+      gaugeCircle.setAttribute('stroke-dashoffset', offset.toString());
+      
+      if (overallScore <= 25) {
+        gaugeCircle.style.stroke = 'rgb(239, 68, 68)'; // red-500
+      } else if (overallScore <= 75) {
+        gaugeCircle.style.stroke = 'rgb(245, 158, 11)'; // amber-500
+      } else {
+        gaugeCircle.style.stroke = 'rgb(16, 185, 129)'; // emerald-500
+      }
+    }
+
+    const gaugeLabel = document.getElementById('res-maturity-label-gauge');
+    if (gaugeLabel) {
+      if (overallScore <= 25) gaugeLabel.textContent = 'Experimental';
+      else if (overallScore <= 50) gaugeLabel.textContent = 'Operacional';
+      else if (overallScore <= 75) gaugeLabel.textContent = 'Estruturação';
+      else gaugeLabel.textContent = 'Maduro';
+    }
+
+    const maturityStageName = document.getElementById('res-maturity-stage-name');
+    if (maturityStageName) maturityStageName.textContent = maturityStageText;
+
+    const maturityDescription = document.getElementById('res-maturity-description');
+    if (maturityDescription) maturityDescription.textContent = maturityDescriptionText;
+
+    // Helper function to update dimension display
+    const updateDimensionUI = (num, score) => {
+      const scoreLabel = document.getElementById(`res-dim${num}-score`);
+      const bar = document.getElementById(`res-dim${num}-bar`);
+      if (scoreLabel) scoreLabel.textContent = `${score}%`;
+      if (bar) {
+        bar.style.width = `${score}%`;
+        if (score <= 25) bar.style.backgroundColor = 'rgb(239, 68, 68)';
+        else if (score <= 75) bar.style.backgroundColor = 'rgb(245, 158, 11)';
+        else bar.style.backgroundColor = 'rgb(16, 185, 129)';
+      }
+    };
+
+    updateDimensionUI(1, dim1Score);
+    updateDimensionUI(2, dim2Score);
+    updateDimensionUI(3, dim3Score);
+    updateDimensionUI(4, dim4Score);
+    updateDimensionUI(5, dim5Score);
+
+    // Apply dimensional visual highlights on the TWO lowest scores
+    for (let i = 1; i <= 5; i++) {
+      const container = document.getElementById(`res-dim${i}-container`);
+      const warning = document.getElementById(`res-dim${i}-warning`);
+      if (container) {
+        container.className = "space-y-2.5 p-4 rounded-2xl border border-foreground/10 bg-foreground/[0.01] transition-all duration-300 relative";
+      }
+      if (warning) {
+        warning.classList.add('hidden');
+      }
+    }
+
+    const highlightContainer = (dimObj) => {
+      const container = document.getElementById(`res-dim${dimObj.id}-container`);
+      const warning = document.getElementById(`res-dim${dimObj.id}-warning`);
+      if (container) {
+        container.className = "space-y-2.5 p-4 rounded-2xl border-amber-500/30 bg-amber-500/5 ring-1 ring-amber-500/20 transition-all duration-300 relative";
+      }
+      if (warning) {
+        warning.classList.remove('hidden');
+      }
+    };
+
+    highlightContainer(lowest);
+    highlightContainer(secondLowest);
+
+    // Fetch sector-specific dynamic data
+    const sectorSelect = document.getElementById('select-sector') as HTMLSelectElement;
+    const selectedSector = sectorSelect ? sectorSelect.value : 'Varejo & E-commerce';
+    const sectorConfig = SECTOR_DATA[selectedSector as keyof typeof SECTOR_DATA] || SECTOR_DATA['Outros'];
+
+    // Inject Block 3 — Principais Gargalos (Primary Bottlenecks)
+    const inferredBottlenecks = document.getElementById('inferred-bottlenecks');
+    if (inferredBottlenecks) {
+      inferredBottlenecks.innerHTML = sectorConfig.bottlenecks.map(b => `
+        <li class="flex items-start gap-2.5 p-4 rounded-xl border border-foreground/5 bg-foreground/[0.01]">
+          <span class="h-5 w-5 shrink-0 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center font-bold text-xs mt-0.5">!</span>
+          <span class="text-xs text-muted leading-relaxed font-normal">${b}</span>
+        </li>
+      `).join('');
+    }
+
+    // Inject Block 4 — Mercado e Benchmark Setorial (Market & Sector Benchmark)
+    const marketBenchmark = document.getElementById('market-benchmark');
+    if (marketBenchmark) {
+      marketBenchmark.textContent = sectorConfig.marketFacts;
+    }
+
+    // Inject Block 5 — Eficiência Projetada (Projected Efficiency)
+    const projectedEfficiency = document.getElementById('projected-efficiency');
+    if (projectedEfficiency) {
+      projectedEfficiency.innerHTML = sectorConfig.efficiencies.map(e => `
+        <div class="p-4 rounded-xl border border-accent/10 bg-accent/[0.01]">
+          <span class="text-xs font-bold text-accent uppercase tracking-wider block mb-1">${e.label}</span>
+          <p class="text-xs text-muted leading-relaxed font-normal">${e.value}</p>
+        </div>
+      `).join('');
+    }
+
+    // Inject Block 6 — Plano de Ação (90-Day Action Plan)
+    const actionPlan = document.getElementById('action-plan');
+    if (actionPlan) {
+      actionPlan.innerHTML = getActionPlanHTML(lowest.key);
+    }
+
+    // Inject Block 7 — Case do Setor (Industry Success Case)
+    const primaryCase = sectorConfig.primaryCase;
+    state.primaryCase = primaryCase;
+
+    // Populating Stage 3 Block 7 Case Info
+    const st3Brand = document.querySelector('#stage-3 #success-case-brand');
+    const st3Segment = document.querySelector('#stage-3 #success-case-segment');
+    const st3Result = document.querySelector('#stage-3 #success-case-result');
+    const st3Problem = document.querySelector('#stage-3 #success-case-problem');
+    const st3Approach = document.querySelector('#stage-3 #success-case-approach');
+    const st3Takeaway = document.querySelector('#stage-3 #success-case-takeaway');
+
+    if (st3Brand) st3Brand.textContent = primaryCase.name;
+    if (st3Segment) st3Segment.textContent = primaryCase.segment;
+    if (st3Result) st3Result.textContent = primaryCase.result;
+    if (st3Problem) st3Problem.textContent = primaryCase.problem;
+    if (st3Approach) st3Approach.textContent = primaryCase.approach;
+    if (st3Takeaway) st3Takeaway.textContent = primaryCase.takeaway;
+
+    // Populating Stage 4 Success Info
+    const successCaseCard = document.getElementById('success-case-card');
+    const st4Brand = document.querySelector('#stage-4 #success-case-brand');
+    const st4Result = document.querySelector('#stage-4 #success-case-result');
+    const st4Justification = document.querySelector('#stage-4 #success-case-justification');
+    const btnOpenWhatsapp = document.getElementById('btn-open-whatsapp') as HTMLAnchorElement;
+
+    if (st4Brand) st4Brand.textContent = primaryCase.name;
+    if (st4Result) st4Result.textContent = primaryCase.result;
+    if (st4Justification) st4Justification.textContent = primaryCase.takeaway;
+    if (successCaseCard) successCaseCard.classList.remove('hidden');
+
+    if (btnOpenWhatsapp) {
+      btnOpenWhatsapp.innerHTML = `
+        <svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C16.59 2.016 14.135 1 11.997 1 6.562 1 2.135 5.371 2.131 10.8c-.001 1.76.474 3.478 1.38 5.003L2.503 21.1l5.411-1.419c.11.06.222.114.333.165zM17.115 14c-.28-.14-1.655-.815-1.912-.91-.256-.092-.443-.14-.63.14-.187.28-.724.91-.887 1.095-.164.186-.328.21-.608.07-.28-.14-1.182-.435-2.251-1.39-.831-.742-1.393-1.658-1.556-1.938-.163-.28-.017-.431.122-.571.125-.125.28-.327.42-.49.14-.163.187-.28.28-.467.094-.187.047-.35-.024-.49-.07-.14-.63-1.517-.862-2.078-.227-.547-.457-.473-.63-.482-.163-.008-.35-.01-.537-.01-.187 0-.49.07-.747.35-.257.28-.981.958-.981 2.333 0 1.375.999 2.702 1.14 2.888.14.187 1.966 3.004 4.761 4.21.665.286 1.184.457 1.588.585.668.213 1.277.182 1.758.11.536-.08 1.655-.677 1.887-1.332.234-.655.234-1.215.164-1.332-.07-.116-.257-.186-.537-.326z"/>
+        </svg>
+        Quero Replicar o Case ${primaryCase.name} no WhatsApp
+      `;
+    }
+  }
+
+  // Initialize Event Listeners
+  function init() {
+    // Start button
+    btnStartSimulation?.addEventListener('click', () => {
+      setStage(2);
+    });
+
+    // Option Buttons Click
+    document.querySelectorAll('.quiz-opt-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const stepNum = parseInt(btn.getAttribute('data-step') || '0', 10);
+        const val = btn.getAttribute('data-val') || '';
+        selectOption(stepNum, val);
+      });
+    });
+
+    // Prev/Next Buttons
+    btnQuizPrev?.addEventListener('click', () => {
+      if (state.currentStep > 1) {
+        showStep(state.currentStep - 1);
+      } else {
+        setStage(1);
+      }
+    });
+
+    btnQuizNext?.addEventListener('click', () => {
+      const hasAnswer = !!state.answers[state.currentStep - 1];
+
+      if (!hasAnswer) {
+        alert('Por favor, selecione uma opção para continuar.');
+        return;
+      }
+
+      if (state.currentStep < 10) {
+        showStep(state.currentStep + 1);
+      } else {
+        setStage(3);
+      }
+    });
+
+    // Unlock report button
+    btnUnlockReport?.addEventListener('click', () => {
+      setStage(4);
+    });
+
+    // Back to results
+    btnBackToResults?.addEventListener('click', () => {
+      setStage(3);
+    });
+
+    // Sector Selectors Sync
+    const sectorSelect = document.getElementById('select-sector') as HTMLSelectElement;
+    const leadSectorSelect = document.getElementById('lead-sector') as HTMLSelectElement;
+
+    sectorSelect?.addEventListener('change', () => {
+      if (leadSectorSelect) leadSectorSelect.value = sectorSelect.value;
+      calculateResults();
+    });
+
+    leadSectorSelect?.addEventListener('change', () => {
+      if (sectorSelect) sectorSelect.value = leadSectorSelect.value;
+      calculateResults();
+    });
+
+    // WhatsApp Phone Masking
+    const phoneInput = document.getElementById('lead-phone') as HTMLInputElement;
+    phoneInput?.addEventListener('input', (e) => {
+      let value = (e.target as HTMLInputElement).value.replace(/\D/g, '');
+      if (value.length > 11) value = value.slice(0, 11);
+      
+      let formatted = '';
+      if (value.length > 0) {
+        formatted = `(${value.slice(0, 2)}`;
+      }
+      if (value.length > 2) {
+        formatted += `) ${value.slice(2, 7)}`;
+      }
+      if (value.length > 7) {
+        formatted += `-${value.slice(7, 11)}`;
+      }
+      (e.target as HTMLInputElement).value = formatted;
+    });
+
+    // Lead Capture Form Submit
+    leadCaptureForm?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const submitBtn = leadCaptureForm.querySelector('button[type="submit"]') as HTMLButtonElement;
+      if (!submitBtn) return;
+      
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Gerando Plano Estratégico...
+      `;
+      
+      const nameInput = document.getElementById('lead-name') as HTMLInputElement;
+      const emailInput = document.getElementById('lead-email') as HTMLInputElement;
+      const phoneInput = document.getElementById('lead-phone') as HTMLInputElement;
+      const companyInput = document.getElementById('lead-company') as HTMLInputElement;
+      const roleInput = document.getElementById('lead-role') as HTMLSelectElement;
+      const sectorInput = document.getElementById('lead-sector') as HTMLSelectElement;
+
+      // Update Summary Cards
+      const sumCompany = document.getElementById('sum-company');
+      const sumOverallScore = document.getElementById('sum-overall-score');
+      const sumMaturityStage = document.getElementById('sum-maturity-stage');
+      const sumCriticalPilar = document.getElementById('sum-critical-pilar');
+
+      if (sumCompany) sumCompany.textContent = companyInput.value;
+      if (sumOverallScore) sumOverallScore.textContent = `${state.scores.overall}%`;
+      if (sumMaturityStage) sumMaturityStage.textContent = state.scores.maturityStage;
+      if (sumCriticalPilar) sumCriticalPilar.textContent = state.scores.lowestDimension;
+
+      // Construct WhatsApp message URL
+      const name = nameInput.value;
+      const email = emailInput.value;
+      const phone = phoneInput ? phoneInput.value : '';
+      const company = companyInput.value;
+      const role = roleInput ? roleInput.value : '';
+      const sector = sectorInput ? sectorInput.value : 'Varejo & E-commerce';
+
+      const overallScore = state.scores.overall;
+      const maturityStage = state.scores.maturityStage;
+      const lowestDimension = state.scores.lowestDimension;
+
+      const revenueScore = state.scores.revenue;
+      const dataScore = state.scores.data;
+      const autonomyScore = state.scores.autonomy;
+      const humanScore = state.scores.human;
+      const governanceScore = state.scores.governance;
+
+      const caseObj = state.primaryCase;
+
+      const messageText = `Olá! Acabei de realizar o Diagnóstico de Maturidade de IA Comercial e gostaria de receber o meu Plano de Ação Personalizado.
+
+*Meus Dados:*
+• *Nome:* ${name}
+• *Empresa:* ${company}
+• *Cargo:* ${role}
+• *Setor:* ${sector}
+• *E-mail:* ${email}
+• *WhatsApp:* ${phone}
+
+*Resultados do Diagnóstico:*
+• *Maturidade Geral:* ${overallScore}% (${maturityStage})
+• *Gargalo Crítico:* ${lowestDimension}
+
+*Case Recomendado:*
+• *Empresa:* ${caseObj.name} (${caseObj.segment})
+• *Problema:* ${caseObj.problem}
+• *Abordagem:* ${caseObj.approach}
+• *Resultado:* ${caseObj.result}
+• *Takeaway:* ${caseObj.takeaway}
+
+*Pontuação por Pilar:*
+1. *Estratégia e Canal:* ${revenueScore}%
+2. *Dados e Atribuição:* ${dataScore}%
+3. *Operação e Performance:* ${autonomyScore}%
+4. *Governança e Segurança:* ${humanScore}%
+5. *Ownership e Organização:* ${governanceScore}%
+
+Gostaria de ver como posso aplicar o plano estratégico e estruturar a jornada de Revenue AI na minha operação comercial!`;
+
+      const encodedText = encodeURIComponent(messageText);
+      const companyPhone = import.meta.env.PUBLIC_COMPANY_WHATSAPP || '5511999999999';
+      const whatsappUrl = `https://api.whatsapp.com/send?phone=${companyPhone}&text=${encodedText}`;
+
+      const btnOpenWhatsapp = document.getElementById('btn-open-whatsapp') as HTMLAnchorElement;
+      if (btnOpenWhatsapp) {
+        btnOpenWhatsapp.href = whatsappUrl;
+      }
+
+      setTimeout(() => {
+        leadFormContainer?.classList.add('hidden');
+        leadSuccessContainer?.classList.remove('hidden');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
+      }, 1200);
+    });
+
+    // Restart simulation
+    btnRestartSimulation?.addEventListener('click', () => {
+      state.stage = 1;
+      state.currentStep = 1;
+      state.answers = Array(10).fill('');
+      
+      leadCaptureForm?.reset();
+
+      setStage(1);
+    });
+  }
+
+  // Run on mount
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+</script>

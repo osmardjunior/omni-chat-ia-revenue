@@ -1,0 +1,53 @@
+
+> astro-static-marketing-site-starter@0.0.1 dev
+> astro dev
+
+19:43:25 [types] Generated 1ms
+19:43:25 [content] Syncing content
+19:43:25 [content] Synced content
+
+ astro  v5.17.1 ready in 147 ms
+
+┃ Local    http://localhost:4321/
+┃ Network  use --host to expose
+
+19:43:25 watching for file changes...
+19:43:32 [200] / 19ms
+19:45:36 [watch] src/pages/index.astro
+19:45:36 [watch] src/pages/index.astro
+19:45:36 [200] / 16ms
+19:45:42 [200] / 4ms
+19:46:00 [watch] src/pages/index.astro
+19:46:00 [200] / 22ms
+19:46:05 [200] / 8ms
+19:48:10 [watch] /src/pages/index.astro?astro&type=style&index=0&lang.css
+19:48:10 [watch] src/pages/index.astro
+19:48:18 [200] / 10ms
+19:48:36 [watch] src/pages/index.astro
+19:48:36 [200] / 14ms
+19:48:49 [watch] src/pages/index.astro
+19:48:50 [200] / 14ms
+19:48:55 [watch] src/pages/index.astro
+19:48:55 [200] / 18ms
+19:49:03 [200] / 5ms
+19:53:10 [watch] src/pages/index.astro
+19:53:13 [watch] src/pages/index.astro
+19:53:18 [watch] src/pages/index.astro
+19:53:21 [watch] src/pages/index.astro
+19:53:28 [watch] src/pages/index.astro
+21:06:23 [watch] src/pages/index.astro
+22:05:41 [watch] src/pages/index.astro
+22:24:33 [watch] /src/styles/global.css
+22:24:41 [watch] src/pages/index.astro
+22:49:30 [watch] src/pages/index.astro
+23:01:43 [watch] src/pages/index.astro
+23:16:06 [watch] src/pages/index.astro
+23:19:42 [watch] src/pages/index.astro
+23:19:59 [watch] src/pages/index.astro
+23:20:09 [watch] src/pages/index.astro
+23:24:55 [watch] src/pages/index.astro
+14:48:04 [watch] /src/styles/global.css
+14:51:03 [watch] src/pages/index.astro
+15:54:05 [watch] src/pages/index.astro
+23:58:15 [watch] /src/styles/global.css
+23:58:54 [watch] src/pages/index.astro

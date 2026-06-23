@@ -1,0 +1,218 @@
+---
+import Button from './ui/Button.astro';
+import logoOmnichat from '../image/logo-omnichat.svg';
+---
+<!-- ==================== TELA 4: CAPTURA DE LEAD / SUCESSO (Glassmorphism Edit) ==================== -->
+<section id="stage-4" class="hidden space-y-10 transition-all duration-500 ease-in-out">
+  
+  <!-- Lead Form State -->
+  <div id="lead-form-container" class="space-y-8">
+    <div class="text-center space-y-3 relative">
+      <Button 
+        id="btn-back-to-results" 
+        variant="link"
+        class="inline-flex items-center gap-1.5 mb-2 !text-muted hover:!text-purple-300 font-lato font-bold text-xs uppercase tracking-wider"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+        </svg>
+        Voltar para os resultados
+      </Button>
+      <h1 class="font-lato text-3xl md:text-5xl font-extrabold tracking-tight text-[#FFD04D] leading-tight">Receba seu Diagnóstico no WhatsApp</h1>
+      <p class="text-muted text-sm md:text-base max-w-xl mx-auto font-lato font-medium">Preencha os dados abaixo para receber o Plano de Ação Personalizado e a simulação de Revenue AI adaptada à realidade da sua empresa.</p>
+    </div>
+
+    <!-- Glassmorphic Form Card -->
+    <div class="relative bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 md:p-10 shadow-2xl max-w-xl mx-auto overflow-hidden">
+      <!-- Glow effect -->
+      <div class="absolute -top-32 -left-32 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      
+      <form id="lead-capture-form" class="space-y-6 relative z-10">
+        
+        <!-- Nome -->
+        <div class="space-y-2">
+          <label for="lead-name" class="text-[10px] font-bold uppercase tracking-widest text-muted font-lato">Nome Completo</label>
+          <input 
+            type="text" 
+            id="lead-name" 
+            required
+            placeholder="Ex: Carlos Silva"
+            class="w-full px-4.5 py-4 rounded-xl border border-white/10 bg-[#14121b]/60 text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all duration-300 text-sm font-lato"
+          />
+        </div>
+
+        <!-- E-mail -->
+        <div class="space-y-2">
+          <label for="lead-email" class="text-[10px] font-bold uppercase tracking-widest text-muted font-lato">E-mail Corporativo</label>
+          <input 
+            type="email" 
+            id="lead-email" 
+            required
+            placeholder="Ex: carlos@empresa.com.br"
+            class="w-full px-4.5 py-4 rounded-xl border border-white/10 bg-[#14121b]/60 text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all duration-300 text-sm font-lato"
+          />
+        </div>
+
+        <!-- WhatsApp -->
+        <div class="space-y-2">
+          <label for="lead-phone" class="text-[10px] font-bold uppercase tracking-widest text-muted font-lato">Seu WhatsApp</label>
+          <input 
+            type="tel" 
+            id="lead-phone" 
+            required
+            placeholder="Ex: (11) 99999-9999"
+            class="w-full px-4.5 py-4 rounded-xl border border-white/10 bg-[#14121b]/60 text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all duration-300 text-sm font-lato"
+          />
+        </div>
+
+        <!-- Empresa -->
+        <div class="space-y-2">
+          <label for="lead-company" class="text-[10px] font-bold uppercase tracking-widest text-muted font-lato">Nome da Empresa</label>
+          <input 
+            type="text" 
+            id="lead-company" 
+            required
+            placeholder="Ex: Tecno Soluções"
+            class="w-full px-4.5 py-4 rounded-xl border border-white/10 bg-[#14121b]/60 text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all duration-300 text-sm font-lato"
+          />
+        </div>
+
+        <!-- Cargo -->
+        <div class="space-y-2">
+          <label for="lead-role" class="text-[10px] font-bold uppercase tracking-widest text-muted font-lato">Seu Cargo / Função</label>
+          <select 
+            id="lead-role" 
+            required
+            class="w-full px-4.5 py-4 rounded-xl border border-white/10 bg-[#14121b]/60 text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all duration-300 text-sm font-lato cursor-pointer"
+          >
+            <option value="" disabled selected class="bg-[#14121b]">Selecione seu cargo...</option>
+            <option value="Diretor / C-Level" class="bg-[#14121b]">Diretor / C-Level</option>
+            <option value="Gerente de Revenue/Vendas" class="bg-[#14121b]">Gerente de Revenue / Comercial</option>
+            <option value="Coordenador / Supervisor" class="bg-[#14121b]">Coordenador / Supervisor</option>
+            <option value="Gerente de Marketing/Op" class="bg-[#14121b]">Gerente de Marketing / Operações</option>
+            <option value="Outro" class="bg-[#14121b]">Outro</option>
+          </select>
+        </div>
+
+        <!-- Setor de Atuação -->
+        <div class="space-y-2">
+          <label for="lead-sector" class="text-[10px] font-bold uppercase tracking-widest text-muted font-lato">Setor de Atuação</label>
+          <select 
+            id="lead-sector" 
+            required
+            class="w-full px-4.5 py-4 rounded-xl border border-white/10 bg-[#14121b]/60 text-foreground focus:border-purple-500 focus:ring-1 focus:ring-purple-500 outline-none transition-all duration-300 text-sm font-lato cursor-pointer"
+          >
+            <option value="" disabled selected class="bg-[#14121b]">Selecione seu setor...</option>
+            <option value="Varejo & E-commerce" class="bg-[#14121b]">Varejo & E-commerce</option>
+            <option value="Saúde & Clínicas" class="bg-[#14121b]">Saúde & Clínicas</option>
+            <option value="Serviços Financeiros" class="bg-[#14121b]">Serviços Financeiros</option>
+            <option value="Tecnologia & SaaS" class="bg-[#14121b]">Tecnologia & SaaS</option>
+            <option value="Logística & Distribuição" class="bg-[#14121b]">Logística & Distribuição</option>
+            <option value="Outros" class="bg-[#14121b]">Outros</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <Button 
+          type="submit"
+          class="w-full py-4.5 text-sm font-extrabold uppercase tracking-[0.08em] flex items-center justify-center gap-2 !rounded-xl !bg-purple-600 hover:!bg-purple-500 shadow-lg shadow-purple-600/25 border-0 !text-white"
+        >
+          Gerar Plano de Ação no WhatsApp
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </Button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Success State (Hidden initially) -->
+  <div id="lead-success-container" class="hidden space-y-8 max-w-2xl mx-auto">
+    
+    <div class="bg-gradient-to-br from-[#121019] to-[#0d0b12] border border-purple-500/20 rounded-[2.5rem] p-8 text-center space-y-6 shadow-2xl relative overflow-hidden">
+      <!-- Glow background -->
+      <div class="absolute -top-32 -left-32 w-80 h-80 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-32 -right-32 w-80 h-80 bg-emerald-500/[0.03] rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Success Icon -->
+      <div class="relative inline-flex items-center justify-center h-16 w-16 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 mb-2">
+        <div class="absolute inset-0 bg-emerald-500/10 blur-[8px] rounded-full"></div>
+        <svg class="w-8 h-8 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      
+      <h1 class="font-lato text-3xl md:text-4xl font-extrabold tracking-tight text-[#FFD04D]">Diagnóstico Pronto!</h1>
+      <p class="text-muted text-sm md:text-base font-lato font-medium leading-relaxed">
+        Clique no botão verde abaixo para iniciar a conversa no WhatsApp oficial da nossa assessoria. Com base nas suas pontuações e nos cases recomendados para o seu cenário, iniciaremos um funil conversacional personalizado e enviaremos o seu Plano de Ação Estratégico de Revenue AI!
+      </p>
+
+      <!-- WhatsApp CTA Button -->
+      <div class="pt-2">
+        <Button 
+          id="btn-open-whatsapp"
+          href="#"
+          target="_blank"
+          variant="success"
+          class="w-full py-4 text-base font-bold uppercase tracking-[0.08em] !rounded-xl !bg-emerald-600 hover:!bg-emerald-500 flex items-center justify-center gap-2"
+        >
+          <svg class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.06 5.348 5.397.01 12.008.01c3.202.001 6.212 1.246 8.477 3.514 2.266 2.268 3.507 5.28 3.505 8.484-.004 6.657-5.34 11.997-11.953 11.997-2.005-.001-3.973-.502-5.724-1.455L0 24zm6.59-4.846c1.6.95 3.188 1.449 4.825 1.451 5.436 0 9.86-4.37 9.864-9.799.002-2.623-1.023-5.086-2.885-6.948C16.59 2.016 14.135 1 11.997 1 6.562 1 2.135 5.371 2.131 10.8c-.001 1.76.474 3.478 1.38 5.003L2.503 21.1l5.411-1.419c.11.06.222.114.333.165zM17.115 14c-.28-.14-1.655-.815-1.912-.91-.256-.092-.443-.14-.63.14-.187.28-.724.91-.887 1.095-.164.186-.328.21-.608.07-.28-.14-1.182-.435-2.251-1.39-.831-.742-1.393-1.658-1.556-1.938-.163-.28-.017-.431.122-.571.125-.125.28-.327.42-.49.14-.163.187-.28.28-.467.094-.187.047-.35-.024-.49-.07-.14-.63-1.517-.862-2.078-.227-.547-.457-.473-.63-.482-.163-.008-.35-.01-.537-.01-.187 0-.49.07-.747.35-.257.28-.981.958-.981 2.333 0 1.375.999 2.702 1.14 2.888.14.187 1.966 3.004 4.761 4.21.665.286 1.184.457 1.588.585.668.213 1.277.182 1.758.11.536-.08 1.655-.677 1.887-1.332.234-.655.234-1.215.164-1.332-.07-.116-.257-.186-.537-.326z"/>
+          </svg>
+          Iniciar Conversa no WhatsApp
+        </Button>
+      </div>
+    </div>
+
+    <!-- Case Recomendado Card -->
+    <div id="success-case-card" class="hidden bg-[#110f17]/60 backdrop-blur-xl border border-emerald-500/20 rounded-[2rem] p-6 text-left space-y-4 shadow-xl">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-400 rounded-full border border-emerald-500/20 font-lato">Case Recomendado para Você</span>
+      </div>
+      <div class="space-y-1">
+        <h4 class="font-lato font-extrabold text-xl text-foreground" id="success-case-brand">--</h4>
+        <p class="text-sm font-extrabold text-emerald-400 font-lato" id="success-case-result">--</p>
+      </div>
+      <p class="text-xs text-muted/90 leading-relaxed font-lato font-medium" id="success-case-justification">
+        --
+      </p>
+    </div>
+
+    <!-- Simulated Report Summary Card -->
+    <div class="bg-[#110f17]/60 backdrop-blur-xl border border-white/[0.06] rounded-[2rem] p-6 space-y-4 shadow-xl">
+      <h3 class="font-lato font-bold text-lg text-foreground border-b border-white/[0.06] pb-2">Resumo do Relatório</h3>
+      
+      <div class="space-y-3.5 text-sm font-lato">
+        <div class="flex justify-between">
+          <span class="text-muted font-medium">Empresa:</span>
+          <span class="font-bold text-foreground" id="sum-company">--</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-muted font-medium">Score Geral de Prontidão:</span>
+          <span class="font-black text-accent" id="sum-overall-score">0%</span>
+        </div>
+        <div class="flex justify-between">
+          <span class="text-muted font-medium">Estágio de Maturidade:</span>
+          <span class="font-bold text-foreground" id="sum-maturity-stage">--</span>
+        </div>
+        <div class="flex justify-between border-t border-white/[0.06] pt-3.5">
+          <span class="text-muted font-bold">Gargalo Crítico:</span>
+          <span class="font-extrabold text-accent" id="sum-critical-pilar">--</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="text-center space-y-4">
+      <Button 
+        id="btn-restart-simulation"
+        variant="outline"
+        class="w-full py-4 text-sm font-bold uppercase tracking-[0.08em] !rounded-xl !border-white/10 hover:!border-white/20 hover:!bg-white/5 !text-muted hover:!text-foreground font-lato"
+      >
+        Refazer Diagnóstico de Prontidão
+      </Button>
+      <p class="text-xs text-muted/80 font-lato font-medium">Dúvidas operacionais? Converse com nosso comitê técnico de Revenue AI.</p>
+    </div>
+  </div>
+
+</section>

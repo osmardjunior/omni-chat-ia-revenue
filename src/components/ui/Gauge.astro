@@ -1,0 +1,23 @@
+---
+interface Props {
+  idCircle: string;
+  idScore: string;
+  idLabel: string;
+  class?: string;
+}
+
+const { idCircle, idScore, idLabel, class: className = '' } = Astro.props;
+---
+
+<div class={`relative flex items-center justify-center h-44 w-44 mb-4 ${className}`}>
+  <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+    <!-- Background Circle -->
+    <circle cx="50" cy="50" r="42" stroke="currentColor" stroke-width="8" fill="transparent" class="text-foreground/5" />
+    <!-- Foreground Circle with stroke-dasharray -->
+    <circle cx="50" cy="50" r="42" stroke="var(--accent)" stroke-width="8" fill="transparent" stroke-dasharray="263.8" stroke-dashoffset="263.8" stroke-linecap="round" class="transition-all duration-1000 ease-out" id={idCircle} />
+  </svg>
+  <div class="absolute flex flex-col items-center justify-center">
+    <span class="text-4xl md:text-5xl font-display font-bold tracking-tight" id={idScore}>--</span>
+    <span class="text-[10px] font-bold text-muted uppercase tracking-wider mt-1" id={idLabel}>--</span>
+  </div>
+</div>

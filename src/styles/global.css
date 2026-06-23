@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+/* Self-hosted Inter (variable) — display/headings */
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url("/fonts/inter-variable.woff2") format("woff2");
+}
+
+/* Self-hosted Lato (Light 300 & Bold 700) */
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url("/fonts/lato-light.woff2") format("woff2");
+}
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/lato-bold.woff2") format("woff2");
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-deep: var(--accent-deep);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-lato: var(--font-lato);
+}
+
+:root {
+  /* OmniChat — dark + gold identity (from Figma) */
+  --background: #09070e;
+  --foreground: #f4f3f6;
+  --muted: #8a898f;
+  --accent: #f2d14e;       /* primary gold (logo, headings) */
+  --accent-deep: #e0a500;  /* deeper amber gold (CTA) */
+  --font-display: "Inter", "Space Grotesk", sans-serif;
+  --font-body: "Inter", "DM Sans", sans-serif;
+  --font-lato: "Lato", sans-serif;
+}
+
+/* Custom exact Figma style requested by user */
+.figma-heading {
+  color: #FFD04D;
+  font-family: "Lato", sans-serif;
+  font-size: 5rem;
+  font-style: normal;
+  font-weight: 275; /* Rendered near 300 (Light) */
+  line-height: 5.2rem;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body);
+}
+
+/* Custom fade-in animation */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+
