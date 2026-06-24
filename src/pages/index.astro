@@ -968,14 +968,47 @@ Gostaria de ver como posso aplicar o plano estratégico e estruturar a jornada d
         btnOpenWhatsappMain.href = whatsappUrl;
       }
 
-      setTimeout(() => {
+      // Envia os dados para a função Serverless do Vercel (/api/submit) que os grava no Airtable com segurança
+      fetch('/api/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          phone,
+          company,
+          role,
+          sector,
+          overallScore,
+          maturityStage,
+          lowestDimension,
+          scores: {
+            revenue: revenueScore,
+            data: dataScore,
+            autonomy: autonomyScore,
+            human: humanScore,
+            governance: governanceScore
+          }
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('[Airtable API Success]:', data);
+      })
+      .catch(err => {
+        console.error('[Airtable API Error]:', err);
+      })
+      .finally(() => {
+        // Transiciona para a tela de sucesso
         leadFormContainer?.classList.add('hidden');
         leadSuccessContainer?.classList.remove('hidden');
         window.scrollTo({ top: 0, behavior: 'smooth' });
         
         submitBtn.disabled = false;
         submitBtn.innerHTML = originalBtnText;
-      }, 1200);
+      });
     });
 
     // Restart simulation
